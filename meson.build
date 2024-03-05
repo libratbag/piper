@@ -1,9 +1,9 @@
 project('piper',
-    version: '0.7',
+    version: '0.8',
     license: 'GPL-2.0-or-later',
     meson_version: '>= 0.51.0')
 # The tag date of the project_version(), update when the version bumps.
-version_date='2022-06-22'
+version_date='2024-03-05'
 
 # The DBus API version of ratbagd that we are compatible with. Anything
 # higher or lower will not be compatible so make sure you bumpt that to the
@@ -17,7 +17,7 @@ enable_runtime_dependency_checks = get_option('runtime-dependency-checks')
 # Dependencies
 if enable_runtime_dependency_checks
     ratbagd = find_program('ratbagd', required: false)
-    ratbagd_required_version='0.17'
+    ratbagd_required_version='0.18'
 
     if not ratbagd.found()
         message('''
