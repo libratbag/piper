@@ -742,10 +742,10 @@ class RatbagdResolution(_RatbagdDBus):
 
     @staticmethod
     def _convert_resolution_from_dbus(
-        res: Union[int, Tuple[int, int]]
+        res: Union[int, Tuple[int, int]],
     ) -> Union[Tuple[int], Tuple[int, int]]:
         """
-        Convert resolution from what D-Bus API retuns - either an int or a tuple of two ints, to a tuple of either one or two ints.
+        Convert resolution from what D-Bus API returns - either an int or a tuple of two ints, to a tuple of either one or two ints.
         """
         if isinstance(res, int):
             return (res,)
@@ -1003,8 +1003,8 @@ class RatbagdButton(_RatbagdDBus):
 
 class RatbagdMacro(GObject.Object):
     """Represents a button macro. Note that it uses keycodes as defined by
-    linux/input.h and not those used by X.Org or any other higher layer such as
-    Gdk."""
+    linux/input-event-codes.h and not those used by X.Org or any other higher
+    layer such as Gdk."""
 
     # Both a key press and release.
     _MACRO_KEY = 1000
