@@ -10,7 +10,7 @@ from .ratbagd import RatbagdButton, RatbagdMacro, RatbagDeviceType
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gdk, GdkX11, GObject, Gtk  # noqa
+from gi.repository import Gdk, GObject, Gtk  # noqa
 
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ButtonRow.ui")
