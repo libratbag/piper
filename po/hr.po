@@ -83,7 +83,7 @@ msgstr "Posebno mapiranje"
 
 #. Translators: the {} will be replaced with the button index, e.g.
 #. "Button 1 click".
-#: piper/buttondialog.py:222 piper/buttonspage.py:90
+#: piper/ratbagd.py:898
 msgid "Button {} click"
 msgstr "Tipka {} klik"
 
