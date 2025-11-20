@@ -2,3 +2,11 @@ option('runtime-dependency-checks',
 	type: 'boolean',
 	value: true,
 	description: 'Check for runtime dependencies during installation (default=yes)')
+option('format-code',
+	type: 'boolean',
+	value: false,
+	description: 'Format code during building (default=no)')
+option('lint-code',
+	type: 'boolean',
+	value: false,
+	description: 'Lint code during building (default=no)')

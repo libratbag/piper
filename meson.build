@@ -13,6 +13,8 @@ ratbagd_api_version = 2
 
 # Options
 enable_runtime_dependency_checks = get_option('runtime-dependency-checks')
+enable_formatting = get_option('format-code')
+enable_linting = get_option('lint-code')
 
 # Dependencies
 if enable_runtime_dependency_checks
@@ -143,35 +145,39 @@ test(
 )
 
 #### code formatting #####
-run_target(
-  'python-black',
-  command : 'tools/python-black.sh',
-)
+if enable_formatting
+    run_target(
+      'python-black',
+      command : 'tools/python-black.sh',
+    )
 
-python_black_check = find_program(join_paths(meson.current_source_dir(), 'tests/python-black-check.sh'))
-run_target(
-  'python-black-check',
-  command : python_black_check,
-)
-test(
-  'python-black-check',
-  python_black_check,
-  env: env_test,
-)
+    python_black_check = find_program(join_paths(meson.current_source_dir(), 'tests/python-black-check.sh'))
+    run_target(
+      'python-black-check',
+      command : python_black_check,
+    )
+    test(
+      'python-black-check',
+      python_black_check,
+      env: env_test,
+    )
+endif
 
-#### code linting #####
-run_target(
-  'python-ruff',
-  command : 'tools/python-ruff.sh',
-)
+if enable_linting
+    #### code linting #####
+    run_target(
+      'python-ruff',
+      command : 'tools/python-ruff.sh',
+    )
 
-python_ruff_check = find_program(join_paths(meson.current_source_dir(), 'tests/python-ruff-check.sh'))
-run_target(
-  'python-ruff-check',
-  command : python_ruff_check,
-)
-test(
-  'python-ruff-check',
-  python_ruff_check,
-  env: env_test,
-)
+    python_ruff_check = find_program(join_paths(meson.current_source_dir(), 'tests/python-ruff-check.sh'))
+    run_target(
+      'python-ruff-check',
+      command : python_ruff_check,
+    )
+    test(
+      'python-ruff-check',
+      python_ruff_check,
+      env: env_test,
+    )
+endif
