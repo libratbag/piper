@@ -45,14 +45,65 @@
             <property name="can-focus">False</property>
             <property name="transition-type">slide-left-right</property>
             <child>
-              <object class="GtkColorChooserWidget" id="colorchooser">
+              <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="tooltip-text" translatable="yes">Choose a color for the LED</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <property name="rgba">rgb(237,212,0)</property>
-                <property name="use-alpha">False</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkColorChooserWidget" id="colorchooser">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="tooltip-text" translatable="yes">Choose a color for the LED</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="rgba">rgb(237,212,0)</property>
+                    <property name="use-alpha">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFrame">
+                    <property name="visible">True</property>
+                    <property name="can-focus">False</property>
+                    <property name="label-xalign">0</property>
+                    <property name="shadow-type">none</property>
+                    <child>
+                      <object class="GtkAlignment">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="left-padding">12</property>
+                        <child>
+                          <object class="GtkScale">
+                            <property name="visible">True</property>
+                            <property name="can-focus">True</property>
+                            <property name="tooltip-text" translatable="yes">Choose a brightness for the LED</property>
+                            <property name="adjustment">adjustment_brightness</property>
+                            <property name="digits">0</property>
+                            <property name="draw-value">False</property>
+                            <property name="value-pos">right</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label">
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                        <property name="label" translatable="yes">Brightness</property>
+                        <property name="track-visited-links">False</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="name">solid</property>
