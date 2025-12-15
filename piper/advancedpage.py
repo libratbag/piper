@@ -27,6 +27,7 @@ class AdvancedPage(Gtk.Box):
     rate_250: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
     rate_500: Gtk.RadioButton = Gtk.Template.Child()  # type: ignore
     rate_button_box: Gtk.ButtonBox = Gtk.Template.Child()  # type: ignore
+    charging_control: Gtk.Switch = Gtk.Template.Child()  # type: ignore
 
     def __init__(
         self, device: RatbagdDevice, profile: RatbagdProfile, *args, **kwargs
@@ -106,6 +107,20 @@ class AdvancedPage(Gtk.Box):
         )
         self._update_widget_angle_snapping()
 
+        self._charging_control_switch_handler = self.charging_control.connect(
+            "state-set", self._on_charging_control_switch_state_set
+        )
+
+        self.charging_control.set_sensitive(profile.charging_control != -1)
+
+        self._profile_charging_control_changed_handler = connect_signal_with_weak_ref(
+            self,
+            self._profile,
+            "notify::charging-control",
+            self._on_profile_charging_control_changed,
+        )
+        self._update_widget_charging_control()
+
         self.show_all()
 
     def _on_profile_debounce_time_changed(
@@ -183,3 +198,19 @@ class AdvancedPage(Gtk.Box):
             f"Profile was set to a weird report rate: {self._profile.report_rate}",
             file=sys.stderr,
         )
+
+    def _on_charging_control_switch_state_set(
+        self, button: Gtk.Switch, state: bool
+    ) -> None:
+        profile = self._profile
+        with profile.handler_block(self._profile_charging_control_changed_handler):
+            profile.charging_control = 1 if state else 0
+
+    def _on_profile_charging_control_changed(
+        self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
+    ) -> None:
+        self._update_widget_charging_control()
+
+    def _update_widget_charging_control(self) -> None:
+        with self.charging_control.handler_block(self._charging_control_switch_handler):
+            self.charging_control.set_active(self._profile.charging_control == 1)
