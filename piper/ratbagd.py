@@ -850,17 +850,21 @@ class RatbagdButton(_RatbagdDBus):
         KEY_RELEASE = 2
         WAIT = 3
 
-    """A table mapping a button's index to its usual function as defined by X
-    and the common desktop environments."""
-    BUTTON_DESCRIPTION = {
-        0: N_("Left mouse button click"),
-        1: N_("Right mouse button click"),
-        2: N_("Middle mouse button click"),
-        3: N_("Backward"),
-        4: N_("Forward"),
-    }
+    #region descriptions
+    PRIMARY_BUTTON_DESCRIPTION_BY_MAPPING_NUMBER = {
+        1: N_("Left mouse button click"),
+        2: N_("Right mouse button click"),
+        3: N_("Middle mouse button click"),
+    } 
+    """A table to get the 3 primary buttons' descriptions by their 1-based mapping-number."""
 
-    """A table mapping a special function to its human-readable description."""
+    EXTRA_BUTTON_DESCRIPTION_BY_MAPPING_NUMBER = {
+        4: N_("Backward"),
+        5: N_("Forward"),
+    }
+    """A table to get the extra buttons' descriptions by their 1-based mapping-number.
+    Because these buttons are less standardized, it will be appended with their numeric description."""
+   
     SPECIAL_DESCRIPTION = {
         ActionSpecial.INVALID: N_("Invalid"),
         ActionSpecial.UNKNOWN: N_("Unknown"),
@@ -883,6 +887,28 @@ class RatbagdButton(_RatbagdDBus):
         ActionSpecial.SECOND_MODE: N_("Second Mode"),
         ActionSpecial.BATTERY_LEVEL: N_("Battery Level"),
     }
+    """A table mapping a special function to its human-readable description."""
+
+    @classmethod
+    def get_description_by_mapping_number(cls, mapping_number: int) -> str:
+        """Get the description for a mouse-button with the given 1-based button-mapping-number.
+        (eg left-click is 1)."""
+        # Translators: the {} will be replaced with the button index, e.g.
+        # "Button 1 click".
+        numeric_description = _("Button {} click").format(mapping_number)
+        if mapping_number in cls.PRIMARY_BUTTON_DESCRIPTION_BY_MAPPING_NUMBER:
+            description = _(cls.PRIMARY_BUTTON_DESCRIPTION_BY_MAPPING_NUMBER[mapping_number])
+        elif mapping_number in cls.EXTRA_BUTTON_DESCRIPTION_BY_MAPPING_NUMBER:
+            # create combined description eg "Backward (Button 4 Press)".
+            # Doing this as hard-coded parenthetical because there are already 
+            # translations made for the numeric description and the extra button descriptions.
+            description = f"{_(cls.EXTRA_BUTTON_DESCRIPTION_BY_MAPPING_NUMBER[mapping_number])} ({numeric_description})"
+        else:
+            description = numeric_description
+        return description
+        
+    #endregion
+
 
     def __init__(self, object_path):
         super().__init__("Button", object_path)
@@ -901,7 +927,7 @@ class RatbagdButton(_RatbagdDBus):
 
     @GObject.Property
     def mapping(self):
-        """An integer of the current button mapping, if mapping to a button
+        """A 1-based int of the current button mapping, if mapping to a button
         or None otherwise."""
         type, button = self._mapping()
         if type != RatbagdButton.ActionType.BUTTON:
@@ -912,7 +938,7 @@ class RatbagdButton(_RatbagdDBus):
     def mapping(self, button):
         """Set the button mapping to the given button.
 
-        @param button The button to map to, as int
+        @param button The button to map to, as a 1-based int
         """
         button = GLib.Variant("u", button)
         self._set_dbus_property(

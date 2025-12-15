@@ -97,12 +97,7 @@ class ButtonsPage(Gtk.Box):
         # corresponding optionbutton has to be updated.
         action_type = ratbagd_button.action_type
         if action_type == RatbagdButton.ActionType.BUTTON:
-            if ratbagd_button.mapping - 1 in RatbagdButton.BUTTON_DESCRIPTION:
-                label = _(RatbagdButton.BUTTON_DESCRIPTION[ratbagd_button.mapping - 1])
-            else:
-                # Translators: the {} will be replaced with the button index, e.g.
-                # "Button 1 click".
-                label = _("Button {} click").format(ratbagd_button.mapping - 1)
+            label = RatbagdButton.get_description_by_mapping_number(ratbagd_button.mapping)
         elif action_type == RatbagdButton.ActionType.SPECIAL:
             label = _(RatbagdButton.SPECIAL_DESCRIPTION[ratbagd_button.special])
         elif action_type == RatbagdButton.ActionType.MACRO:
@@ -128,7 +123,8 @@ class ButtonsPage(Gtk.Box):
             ratbagd_button,
             buttons,
             device_type,
-            title=_("Configure button {}").format(ratbagd_button.index),
+            # + 1 because 1-based button numbers are more intuitive than 0-based.  Left-click = Button 1.
+            title=_("Configure button {}").format(ratbagd_button.index + 1),
             use_header_bar=True,
             transient_for=self.get_toplevel(),
         )
@@ -155,7 +151,7 @@ class ButtonsPage(Gtk.Box):
                     right = self._find_button_type(1)
                     if left is None or right is None:
                         return
-                    # Mappings are 1-indexed, so 1 is left mouse click and 2 is
+                    # Mappings are 1-based, so 1 is left mouse click and 2 is
                     # right mouse click.
                     if dialog.mapping == ButtonDialog.LEFT_HANDED_MODE:
                         left.mapping, right.mapping = 2, 1
