@@ -124,7 +124,7 @@ class MouseMap(Gtk.Container):
         self._layer = layer
         self._device = ratbagd_device
         self._children: List[_MouseMapChild] = []
-        self._highlight_element: Optional[str] = None
+        self._highlight_elements: List[str] = []
 
         # TODO: remove this when we're out of the transition to toned down SVGs
         device = self._handle.has_sub("#Device")
@@ -323,22 +323,39 @@ class MouseMap(Gtk.Container):
 
         raise AttributeError(f"Unknown property {prop.name}")
 
+    def set_highlights(self, svg_ids: Optional[List[str]]) -> None:
+        # Highlights the SVG elements with the given ids. Pass None/[] to clear.
+        new_ids = svg_ids or []
+        old_ids = list(self._highlight_elements)
+        if old_ids == new_ids:
+            return
+        self._highlight_elements = new_ids
+        for svg_id in set(old_ids + new_ids):
+            self._redraw_svg_element(svg_id)
+
+    def add_highlight(self, svg_id: str) -> None:
+        # Adds a highlight for the given SVG id.
+        if svg_id in self._highlight_elements:
+            return
+        self._highlight_elements.append(svg_id)
+        self._redraw_svg_element(svg_id)
+
+    def remove_highlight(self, svg_id: str) -> None:
+        # Removes a highlight for the given SVG id.
+        if svg_id not in self._highlight_elements:
+            return
+        self._highlight_elements.remove(svg_id)
+        self._redraw_svg_element(svg_id)
+
     def _on_enter(
         self, widget: Gtk.Widget, event: Gdk.EventCrossing, child: _MouseMapChild
     ) -> None:
         # Highlights the element in the SVG to which the given widget belongs.
-        self._highlight_element = child.svg_id
-        self._redraw_svg_element(child.svg_id)
+        self.add_highlight(child.svg_id)
 
     def _on_leave(self, widget: Gtk.Widget, event: Gdk.EventCrossing) -> None:
         # Restores the device SVG to its original state.
-        old_highlight = self._highlight_element
-
-        if old_highlight is None:
-            return
-
-        self._highlight_element = None
-        self._redraw_svg_element(old_highlight)
+        self.set_highlights([])
 
     def _xpath_has_style(self, svg_id: str, style: str) -> bool:
         # Checks if the SVG element with the given identifier has the given
@@ -380,6 +397,17 @@ class MouseMap(Gtk.Container):
         ret.width = svg_dim.width
         ret.height = svg_dim.height
         return ok, ret
+
+    def get_svg_center(self, svg_id: str) -> Optional[Tuple[int, int]]:
+        # Returns the center position for the given SVG element in widget
+        # coordinates, or None if it cannot be determined.
+        ok, svg_geom = self._get_svg_sub_geometry(svg_id)
+        if not ok:
+            return None
+        x, y = self._translate_to_origin()
+        center_x = x + svg_geom.x + (svg_geom.width / 2)
+        center_y = y + svg_geom.y + (svg_geom.height / 2)
+        return round(center_x), round(center_y)
 
     def _redraw_svg_element(self, svg_id: str) -> None:
         # Helper method to redraw an element of the SVG image. Attempts to
@@ -431,7 +459,7 @@ class MouseMap(Gtk.Container):
         cr.set_source_rgba(color.red, color.green, color.blue, 0.5)
 
         self._handle.render_cairo_sub(cr, id="#Device")
-        if self._highlight_element is not None:
+        if self._highlight_elements:
             svg_surface = cr.get_target()
             highlight_surface = svg_surface.create_similar(
                 cairo.CONTENT_COLOR_ALPHA,
@@ -439,7 +467,8 @@ class MouseMap(Gtk.Container):
                 self._handle.props.height,
             )
             highlight_context = cairo.Context(highlight_surface)
-            self._handle.render_cairo_sub(highlight_context, self._highlight_element)
+            for svg_id in self._highlight_elements:
+                self._handle.render_cairo_sub(highlight_context, svg_id)
             cr.mask_surface(highlight_surface, 0, 0)
         for child in self._children:
             self._handle.render_cairo_sub(cr, id=child.svg_path)
