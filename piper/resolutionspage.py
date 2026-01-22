@@ -58,7 +58,10 @@ class ResolutionsPage(Gtk.Box):
                 label = Gtk.Label(
                     label=_(RatbagdButton.SPECIAL_DESCRIPTION[button.special])
                 )
-                mousemap.add(label, f"#button{button.index}")
+                event_box = Gtk.EventBox()
+                event_box.set_visible_window(False)
+                event_box.add(label)
+                mousemap.add(event_box, f"#button{button.index}")
         mousemap.show_all()
 
         self.listbox.foreach(Gtk.Widget.destroy)
