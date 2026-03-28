@@ -9,6 +9,7 @@ from .ratbagd import RatbagdDevice, RatbagdProfile
 from .resolutionspage import ResolutionsPage
 from .advancedpage import AdvancedPage
 from .ledspage import LedsPage
+from .upowerdevice import UPowerDevice
 from .util.gobject import connect_signal_with_weak_ref
 
 import gi
@@ -25,6 +26,9 @@ class MousePerspective(Gtk.Overlay):
 
     _titlebar: Gtk.HeaderBar = Gtk.Template.Child()  # type: ignore
     add_profile_button: Gtk.Button = Gtk.Template.Child()  # type: ignore
+    battery_box: Gtk.Box = Gtk.Template.Child()  # type: ignore
+    battery_icon: Gtk.Image = Gtk.Template.Child()  # type: ignore
+    battery_label: Gtk.Label = Gtk.Template.Child()  # type: ignore
     button_commit: Gtk.Button = Gtk.Template.Child()  # type: ignore
     button_profile: Gtk.Button = Gtk.Template.Child()  # type: ignore
     label_profile: Gtk.Label = Gtk.Template.Child()  # type: ignore
@@ -37,6 +41,7 @@ class MousePerspective(Gtk.Overlay):
         Gtk.Overlay.__init__(self, *args, **kwargs)
         self._device: Optional[RatbagdDevice] = None
         self._profile: Optional[RatbagdProfile] = None
+        self._upower_device: Optional[UPowerDevice] = None
         self._notification_error_timeout_id = 0
 
     @GObject.Property
@@ -79,6 +84,19 @@ class MousePerspective(Gtk.Overlay):
             "active-profile-changed",
             self._on_active_profile_changed,
         )
+
+        self._upower_device = UPowerDevice.find_for_device(device.name)
+        if self._upower_device is not None:
+            connect_signal_with_weak_ref(
+                self,
+                self._upower_device,
+                "battery-changed",
+                lambda _: self._update_battery_widget(),
+            )
+            self._update_battery_widget()
+            self.battery_box.set_visible(True)
+        else:
+            self.battery_box.set_visible(False)
 
         active_profile = device.active_profile
         assert active_profile is not None
@@ -140,6 +158,15 @@ class MousePerspective(Gtk.Overlay):
             )
 
         self._on_profile_notify_dirty(profile, None)
+
+    def _update_battery_widget(self) -> None:
+        assert self._upower_device is not None
+        pct = self._upower_device.percentage
+        state = self._upower_device.state
+        self.battery_label.set_text(f"{int(pct)}%")
+        self.battery_icon.set_from_icon_name(
+            UPowerDevice.icon_name_for(pct, state), Gtk.IconSize.MENU
+        )
 
     def _hide_notification_error(self) -> None:
         if self._notification_error_timeout_id != 0:

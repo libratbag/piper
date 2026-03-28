@@ -193,6 +193,42 @@
         <property name="position">1</property>
       </packing>
     </child>
+    <child>
+      <object class="GtkBox" id="battery_box">
+        <property name="visible">False</property>
+        <property name="can-focus">False</property>
+        <property name="spacing">4</property>
+        <child>
+          <object class="GtkImage" id="battery_icon">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="icon-name">battery-missing-symbolic</property>
+            <property name="icon_size">1</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="battery_label">
+            <property name="visible">True</property>
+            <property name="can-focus">False</property>
+            <property name="label">0%</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="pack-type">end</property>
+        <property name="position">2</property>
+      </packing>
+    </child>
     <style>
       <class name="titlebar"/>
     </style>
