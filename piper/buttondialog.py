@@ -125,7 +125,7 @@ class ButtonDialog(Gtk.Dialog):
         # Shows the listbox to swap the primary buttons.
         self.stack.set_visible_child_name("handedness")
         # Left mouse button (index 0) is mapped to right mouse button, where
-        # mappings are 1-indexed and thus right mouse click has value 2.
+        # mappings are 1-based and thus right mouse click has value 2.
         # Or, right mouse button (index 1) is mapped to left mouse button,
         # which has value 1.
         if (
@@ -149,7 +149,8 @@ class ButtonDialog(Gtk.Dialog):
 
         i = 0
         for button in buttons:
-            key, name = self._get_button_name_and_description(button)
+            # again, index is 0-based and mapping is 1-based, so +1
+            name = RatbagdButton.get_description_by_mapping_number(button.index + 1)
             # Translators: section header for mapping one button's click to another.
             row = ButtonRow(
                 name,
@@ -248,18 +249,6 @@ class ButtonDialog(Gtk.Dialog):
         search = self.search_entry.get_text().casefold()
 
         return all(term in description for term in search.split(" "))
-
-    def _get_button_name_and_description(
-        self, button: RatbagdButton
-    ) -> Tuple[str, str]:
-        # Translators: the {} will be replaced with the button index, e.g.
-        # "Button 1 click".
-        name = _("Button {} click").format(button.index)
-        if button.index in RatbagdButton.BUTTON_DESCRIPTION:
-            description = _(RatbagdButton.BUTTON_DESCRIPTION[button.index])
-        else:
-            description = name
-        return name, description
 
     def _grab_seat(self) -> bool:
         """

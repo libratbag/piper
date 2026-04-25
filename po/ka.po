@@ -79,7 +79,7 @@ msgstr "სპეციალური მიბმა"
 
 #. Translators: the {} will be replaced with the button index, e.g.
 #. "Button 1 click".
-#: piper/buttondialog.py:217 piper/buttonspage.py:79
+#: piper/ratbagd.py:898
 msgid "Button {} click"
 msgstr "ღილაკის {} წკაპი"
 
