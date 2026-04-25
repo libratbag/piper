@@ -443,6 +443,7 @@ class RatbagdProfile(_RatbagdDBus):
         self._dirty = self._get_dbus_property("IsDirty")
         self._disabled = self._get_dbus_property("Disabled")
         self._report_rate = self._get_dbus_property("ReportRate")
+        self._charging_control = self._get_dbus_property("ChargingControl")
 
         # FIXME: if we start adding and removing objects from any of these
         # lists, things will break!
@@ -527,6 +528,16 @@ class RatbagdProfile(_RatbagdDBus):
             if report_rate != self._report_rate:
                 self._report_rate = report_rate
                 self.notify("report-rate")
+
+        try:
+            charging_control = changed_props["ChargingControl"]
+        except KeyError:
+            # Different property changed, skip.
+            pass
+        else:
+            if charging_control != self._charging_control:
+                self._charging_control = charging_control
+                self.notify("charging-control")
 
     @GObject.Property
     def capabilities(self):
@@ -642,6 +653,19 @@ class RatbagdProfile(_RatbagdDBus):
             file=sys.stderr,
         )
         return None
+
+    @GObject.Property
+    def charging_control(self):
+        """The charging control option."""
+        return self._charging_control
+
+    @charging_control.setter
+    def charging_control(self, value):
+        """Set the charging control option.
+
+        @param value The charging control option as int
+        """
+        self._set_dbus_property("ChargingControl", "i", value)
 
     @GObject.Property
     def buttons(self):

@@ -134,6 +134,7 @@ class MousePerspective(Gtk.Overlay):
             profile.angle_snapping != -1
             or profile.debounces
             or are_report_rates_supported
+            or profile.charging_control != -1
         ):
             self.stack.add_titled(
                 AdvancedPage(self._device, profile), "advanced", _("Advanced")
