@@ -36,18 +36,68 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="title">
+          <object class="GtkButton" id="rename_button">
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="tooltip-text" translatable="yes">Rename this profile</property>
+            <property name="relief">none</property>
+            <signal name="clicked" handler="_on_rename_button_clicked" swapped="no"/>
+            <child>
+              <object class="GtkImage">
+                <property name="can-focus">False</property>
+                <property name="icon-name">document-edit-symbolic</property>
+                <property name="icon_size">1</property>
+              </object>
+            </child>
+            <style>
+              <class name="image-button"/>
+              <class name="circular"/>
+            </style>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="pack-type">end</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkStack" id="name_stack">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="valign">baseline</property>
-            <property name="label">Profile 1</property>
-            <property name="single-line-mode">True</property>
-            <property name="track-visited-links">False</property>
+            <property name="transition-type">crossfade</property>
+            <property name="transition-duration">100</property>
+            <child>
+              <object class="GtkLabel" id="title">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="valign">baseline</property>
+                <property name="label">Profile 1</property>
+                <property name="single-line-mode">True</property>
+                <property name="track-visited-links">False</property>
+              </object>
+              <packing>
+                <property name="name">label</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="name_entry">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="max-length">100</property>
+                <signal name="activate" handler="_on_name_entry_activate" swapped="no"/>
+                <signal name="focus-out-event" handler="_on_name_entry_focus_out_event" swapped="no"/>
+                <signal name="key-press-event" handler="_on_name_entry_key_press_event" swapped="no"/>
+              </object>
+              <packing>
+                <property name="name">entry</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>
