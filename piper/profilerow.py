@@ -38,9 +38,7 @@ class ProfileRow(Gtk.ListBoxRow):
             name = f"Profile {profile.index}"
 
         self.title.set_text(name)
-        self.rename_button.set_visible(
-            RatbagdProfile.CAP_WRITABLE_NAME in profile.capabilities
-        )
+        self.rename_button.set_visible(bool(profile.name))
         self.show_all()
         self.set_visible(not profile.disabled)
 
