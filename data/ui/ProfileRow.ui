@@ -37,6 +37,7 @@
         </child>
         <child>
           <object class="GtkButton" id="rename_button">
+            <property name="no-show-all">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">False</property>
             <property name="tooltip-text" translatable="yes">Rename this profile</property>
@@ -44,6 +45,7 @@
             <signal name="clicked" handler="_on_rename_button_clicked" swapped="no"/>
             <child>
               <object class="GtkImage">
+                <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="icon-name">document-edit-symbolic</property>
                 <property name="icon_size">1</property>
