@@ -28,7 +28,7 @@ class ProfileRow(Gtk.ListBoxRow):
     def __init__(self, profile: RatbagdProfile, *args, **kwargs) -> None:
         Gtk.ListBoxRow.__init__(self, *args, **kwargs)
         self._profile = profile
-        self._committing = False
+        self._popover_key_handler_id = 0
         connect_signal_with_weak_ref(
             self, self._profile, "notify::disabled", self._on_profile_notify_disabled
         )
@@ -59,6 +59,11 @@ class ProfileRow(Gtk.ListBoxRow):
 
     @Gtk.Template.Callback("_on_rename_button_clicked")
     def _on_rename_button_clicked(self, button: Gtk.Button) -> None:
+        popover = self.get_ancestor(Gtk.Popover)
+        if popover is not None and self._popover_key_handler_id == 0:
+            self._popover_key_handler_id = connect_signal_with_weak_ref(
+                self, popover, "key-press-event", self._on_popover_key_press
+            )
         self.name_entry.set_text(self.title.get_text())
         self.name_stack.set_visible_child_name("entry")
         self.name_entry.grab_focus()
@@ -79,21 +84,33 @@ class ProfileRow(Gtk.ListBoxRow):
         self, entry: Gtk.Entry, event: Gdk.EventKey
     ) -> bool:
         if event.keyval == Gdk.KEY_Escape:
-            self.name_stack.set_visible_child_name("label")
+            self._cancel_rename()
             return True
         return False
 
+    def _on_popover_key_press(self, popover: Gtk.Popover, event: Gdk.EventKey) -> bool:
+        if (
+            event.keyval == Gdk.KEY_Escape
+            and self.name_stack.get_visible_child_name() == "entry"
+        ):
+            self._cancel_rename()
+            return True
+        return False
+
+    def _cancel_rename(self) -> None:
+        self.name_entry.set_text(self.title.get_text())
+        self.name_stack.set_visible_child_name("label")
+
     def _commit_rename(self) -> None:
-        if self._committing:
+        if self.name_stack.get_visible_child_name() != "entry":
             return
-        self._committing = True
         new_name = self.name_entry.get_text().strip()
+        self.name_entry.set_text(self.title.get_text())
+        self.name_stack.set_visible_child_name("label")
         if new_name and new_name != self.title.get_text():
             self._profile.name = new_name
             self.title.set_text(new_name)
             self.notify("name")
-        self.name_stack.set_visible_child_name("label")
-        self._committing = False
 
     def set_active(self) -> None:
         """Activates the profile paired with this row."""
