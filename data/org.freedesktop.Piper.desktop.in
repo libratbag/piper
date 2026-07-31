@@ -6,6 +6,7 @@ Exec=piper
 Icon=org.freedesktop.Piper
 Type=Application
 StartupNotify=true
+X-GNOME-UsesNotifications=true
 Categories=GTK;GNOME;Utility;
 # Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 Keywords=gaming;configuration;mouse;mice;

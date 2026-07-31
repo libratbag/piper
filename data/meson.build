@@ -5,6 +5,7 @@ icondir = join_paths(datadir, 'icons', 'hicolor', 'scalable', 'apps')
 symbolicicondir = join_paths(datadir, 'icons', 'hicolor', 'symbolic', 'apps')
 metainfodir = join_paths(datadir, 'metainfo')
 man1dir = join_paths(mandir, 'man1')
+schemadir = join_paths(datadir, 'glib-2.0', 'schemas')
 
 conf = configuration_data()
 conf.set('version', meson.project_version())
@@ -27,6 +28,7 @@ about_dialog = configure_file(input: 'ui/AboutDialog.ui.in',
 
 install_data('org.freedesktop.Piper.svg', install_dir: icondir)
 install_data('org.freedesktop.Piper-symbolic.svg', install_dir: symbolicicondir)
+install_data('org.freedesktop.Piper.gschema.xml', install_dir: schemadir)
 
 i18n.merge_file(input: 'org.freedesktop.Piper.desktop.in',
                 output: 'org.freedesktop.Piper.desktop',
@@ -64,7 +66,7 @@ gresource = configure_file(input: 'piper.gresource.xml.in',
                                      join_paths(meson.current_build_dir(), 'piper.gresource.xml'),
                                      join_paths(meson.current_source_dir(), 'svgs')])
 
-gnome.compile_resources('piper', gresource,
+piper_gresource = gnome.compile_resources('piper', gresource,
                         source_dir: '.',
                         dependencies: [about_dialog],
                         gresource_bundle: true,

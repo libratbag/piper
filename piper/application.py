@@ -11,6 +11,8 @@ gi.require_version("Gio", "2.0")
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gio, GLib, Gtk  # noqa
 
+SETTINGS_SCHEMA_ID = "org.freedesktop.Piper"
+
 
 class Application(Gtk.Application):
     """A Gtk.Application subclass to handle the application's initialization and
@@ -34,8 +36,13 @@ class Application(Gtk.Application):
         initialization should be done here, to prevent doing duplicate work in
         case another window is opened."""
         Gtk.Application.do_startup(self)
+        self._settings = Gio.Settings(schema_id=SETTINGS_SCHEMA_ID)
         self._build_app_menu()
         self._ratbagd: Optional[Ratbagd] = None
+
+    @property
+    def settings(self) -> Gio.Settings:
+        return self._settings
 
     def init_ratbagd(self) -> Ratbagd:
         if self._ratbagd is None:
@@ -55,6 +62,10 @@ class Application(Gtk.Application):
             action = Gio.SimpleAction.new(name, None)
             action.connect("activate", callback)
             self.add_action(action)
+
+        # A stateful toggle action kept in sync with the setting, so it can
+        # be used directly as a checkable item in the primary menu.
+        self.add_action(self._settings.create_action("notify-profile-switch"))
 
     def _about(self, action: Gio.SimpleAction, param: None) -> None:
         # Set up the about dialog.

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.freedesktop.Piper" path="/org/freedesktop/Piper/">
+    <key name="notify-profile-switch" type="b">
+      <default>true</default>
+      <summary>Notify when the active profile changes</summary>
+      <description>
+        When enabled, a desktop notification is shown whenever the device's
+        active profile changes, whether triggered from Piper or from the
+        device itself.
+      </description>
+    </key>
+  </schema>
+</schemalist>

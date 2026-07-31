@@ -14,7 +14,7 @@ from .util.gobject import connect_signal_with_weak_ref
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import GLib, GObject, Gtk  # noqa
+from gi.repository import Gio, GLib, GObject, Gtk  # noqa
 
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/MousePerspective.ui")
@@ -158,6 +158,17 @@ class MousePerspective(Gtk.Overlay):
     ) -> None:
         # TODO: preserve the active tab.
         self._set_profile(profile)
+        self._notify_profile_switch(profile)
+
+    def _notify_profile_switch(self, profile: RatbagdProfile) -> None:
+        app = Gio.Application.get_default()
+        if app is None or not app.settings.get_boolean("notify-profile-switch"):
+            return
+
+        name = profile.name or f"Profile {profile.index}"
+        notification = Gio.Notification.new(_("Piper"))
+        notification.set_body(_("Switched to profile {}").format(name))
+        app.send_notification("profile-switched", notification)
 
     def _on_notification_error_timeout(self) -> bool:
         self._hide_notification_error()

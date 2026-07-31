@@ -1,7 +1,7 @@
 project('piper',
     version: '0.8',
     license: 'GPL-2.0-or-later',
-    meson_version: '>= 0.51.0')
+    meson_version: '>= 0.54.0')
 # The tag date of the project_version(), update when the version bumps.
 version_date='2024-09-24'
 
@@ -111,7 +111,8 @@ configure_file(input: 'piper.in',
 if meson.version().version_compare('>=0.59.0')
     gnome.post_install(
         gtk_update_icon_cache: true,
-        update_desktop_database: true
+        update_desktop_database: true,
+        glib_compile_schemas: true,
     )
 else
     meson.add_install_script('meson_install.sh')
@@ -141,6 +142,24 @@ test(
   args : [meson.current_source_dir()],
   suite : ['all'],
 )
+
+#### python unit tests #####
+pytest_prog = find_program('pytest', required: false)
+if pytest_prog.found()
+  test(
+    'python-pytest',
+    pytest_prog,
+    args : [
+      join_paths(meson.current_source_dir(), 'tests', 'unit'),
+    ],
+    env : [
+      'PYTHONPATH=@0@'.format(meson.current_source_dir()),
+      'PIPER_GRESOURCE_PATH=@0@'.format(piper_gresource[0].full_path()),
+    ],
+    depends : piper_gresource,
+    workdir : meson.current_source_dir(),
+  )
+endif
 
 #### code formatting #####
 run_target(
