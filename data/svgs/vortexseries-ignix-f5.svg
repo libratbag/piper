@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg8" width="417.2" height="407.25" version="1.1" viewBox="0 0 417.2 407.25" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata id="metadata5">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g id="Device" transform="matrix(.39933 0 0 .39933 5.4553 9.5977)">
+  <path id="body" d="m455.81 19.222c-2.676 1.93-0.247 0.927-2.366 1.267-5.068 0.813-28.178 6.731-50.678 13.272-22.387 6.507-53.948 19.133-71.259 24.643-17.536 5.581-34.905 12.759-39.221 16.206-4.261 3.403-10.527 10.94-13.925 16.75-3.398 5.808-7.33 17.168-8.736 25.241-1.405 8.073-3.792 32.296-5.306 53.83-1.728 24.592-2.225 72.65-1.334 129.24 0.779 49.546 2.122 129.96 2.984 178.7 1.123 63.5 0.712 96.294-1.461 115.7-1.668 14.893-4.668 34.836-6.666 44.313-1.998 9.478-5.163 32.179-7.032 50.45-2.57 25.116-2.793 39.532-0.919 59.081 1.364 14.222 5.308 35.83 8.766 48.014 3.46 12.185 10.451 31.148 15.537 42.14s14 27.056 19.812 35.695c5.813 8.64 18.946 24.395 29.184 35.013 10.238 10.619 27.462 25.186 38.273 32.373 10.812 7.188 26.293 15.806 34.401 19.149 8.11 3.343 20.273 7.855 27.03 10.025 6.758 2.17 22.105 5.633 34.107 7.7 19.039 3.279 39.804 3.542 43.282 3.533 11.672 0.098 30.797-1.473 42.72-3.527 12.003-2.067 27.35-5.532 34.107-7.702s18.92-6.681 27.029-10.024c8.109-3.344 23.59-11.961 34.4-19.149 10.813-7.188 28.037-21.753 38.274-32.371 10.238-10.619 23.373-26.376 29.185-35.015 5.813-8.64 14.727-24.701 19.813-35.694 5.085-10.992 12.076-29.956 15.535-42.141s7.404-33.792 8.767-48.014c1.875-19.55 1.65-33.965-0.92-59.08-1.869-18.273-5.032-40.973-7.03-50.45-1.999-9.478-4.998-29.422-6.666-44.315-2.173-19.402-2.585-52.196-1.462-115.7 0.862-48.74 2.206-129.16 2.985-178.7 0.89-56.586 0.393-104.64-1.335-129.24-1.513-21.533-3.9-45.756-5.306-53.829-1.405-8.073-5.337-19.433-8.735-25.242-3.398-5.81-9.664-13.345-13.925-16.748-4.317-3.447-21.686-10.626-39.222-16.208-17.31-5.51-49.377-16.6-71.258-24.643-21.882-8.043-44.057-13.037-49.125-13.85-8.478-1.36-6.392-3.234-7.652 2.002l0.438 6.04h-83.083l-0.998-8.188c-0.489-4.01 2.42-0.5 0.493-0.808z" style="fill:#d3d3cf;stroke-width:3.51;stroke:#bbbeb7"/>
+  <path id="button5" d="m489.34 281.01c5.882-1.732 12.076-3.022 21.314 0l0.853 80.14c-7.046 2.3-14.292 3.864-23.02 0z" style="fill:#fff;stroke-width:3.6851;stroke:#bbbeb7"/>
+  <path id="button3" d="m261.8 397.34-3.12 1.148c-4.775 1.756-5.4 3.782-5.343 17.446 0.036 8.505 1.125 32.505 2.418 53.334 1.618 26.054 3.505 39.616 6.05 43.465 0.723 1.094 3.978 3.443 4.4 5.062-0.016-15.225-1.449-30.218-1.833-51.932-0.33-18.706-2.158-44.02-2.572-68.522z" style="fill:#fff;stroke-width:2;stroke:#bbbeb7"/>
+  <path id="button4" d="m262.31 274.63c-0.535 9.25-3.671 13.025-5.316 13.65-3.149 1.198-3.723 9.465-3.723 53.418 0 51.336 0.071 52.023 5.407 53.406l3.287 0.852c-0.657-38.935 0.868-78.016 0.393-108.18-0.068-4.806 0.092-8.977 0.04-13.233z" style="fill:#fff;stroke-width:2;stroke:#bbbeb7"/>
+  <path id="button2" d="m465.17 108.98v137.03c33.444 21.459 59.072 10.422 69.658-4.444-0.382-40.361-1.139-103.22-1.087-133.58-17.186-26.238-57.358-20.759-68.142-0.88z" style="fill:#fff;stroke-width:4.1736;stroke:#bbbeb7"/>
+  <path id="p1" d="m476 96.676-0.342 154.02c12.62 6.471 37.442 10.123 48.672 1.7l-1.028-155.38c-8.288-8.759-35.053-7.968-47.302-0.34z" style="fill:#d3d3cf;stroke-width:4.1736;stroke:#bbbeb7"/>
+  <path id="button1" d="m539.47 3.898 151.01 40.825c27.77 9.994 43.14 38.025 43.018 73.712 1.631 42.312 0.596 86.027 1.782 129.03 1.621 58.782-2.72 113.62-2.656 155.55-25.329 13.596-61.254 34.592-99.792 48.313-43.409 15.456-91.186 21.022-125.52 20.28l0.07-100.31c12.274-0.948 15.554-6.305 15.815-13.107v-77.114c0.024-4.644-5.28-9.095-15.866-9.367l0.02-47.189c18.552-0.322 35-12.98 35.265-31.64z" style="fill:#d3d3cf;stroke-width:3.51;stroke:#bbbeb7"/>
+  <path id="button0" d="m458.49 3.897-151.01 40.826c-27.77 9.994-43.14 38.024-43.018 73.712-1.63 42.311-0.596 86.026-1.782 129.03-1.621 58.781 1.595 113.62 1.532 155.55 24.09 13.42 62.378 34.592 100.92 48.314 43.41 15.456 91.186 21.021 125.52 20.28l-0.07-100.31c-12.275-0.948-15.554-6.306-15.816-13.107v-77.114c-0.024-4.644 5.28-9.096 15.867-9.367l-0.02-47.19c-18.553-0.321-35-12.98-35.266-31.64z" style="fill:#d3d3cf;stroke-width:3.5096;stroke:#bbbeb7"/>
+  <g id="led0" transform="translate(-10.96,25.28)">
+   <path id="led0-2" d="m279.38 427c0.151 38.58 3.017 78.187 3.754 116.68 0.3 15.63 0.719 31.446 0.055 46.897-2.158 50.239-6.551 97.71-10.901 167.04l-2.434-23.16 0.406-16.518c5.113-61.662 5.264-77.245 8.532-137.14 1.018-18.646-0.04-39.217-0.446-61.227-0.058-3.132-2.155-60.786-3.255-117.56-1.012-52.193-1.044-103.87-0.88-106.6 1.338 46.532 3.213 85.679 5.17 131.59z" style="fill:#fff;stroke-width:2.531;stroke:#bbbeb7"/>
+   <path id="led0-1" d="m746.4 312.2c-3.124 15.783-6.689 88.109-7.323 93.209-11.282 90.749-16.763 178.16 1.934 265.1l6.247 35.496 4.445 42.81 0.03-25.27-1.74-22.972-2.13-16.244-4.397-21.916c-5.624-29.965-9.837-69.828-10.382-106.89-1-68.028 9.133-144.56 10.42-162.85 1.157-16.455 3.183-77.893 2.896-80.462z" style="fill:#fff;stroke-width:2.531;stroke:#bbbeb7"/>
+  </g>
+ </g>
+ <g id="Buttons" transform="translate(-68.792 5.9733)">
+  <g id="button4-path" transform="translate(0,-20)">
+   <path id="p2" d="m70.289 158.39h107.65" style="color:#000000;fill:none;paint-order:normal;stroke-linecap:square;stroke-width:.98092;stroke:#888a85"/>
+   <rect id="button4-leader" x="68.807" y="157.89" width="1" height="1" style="color:#000000;text-align:end;overflow:visible;fill:#888a85;fill-opacity:1;stroke:none;stroke-linecap:round"/>
+   <rect id="r1" x="173.94" y="154.82" width="7" height="7" style="color:#000000;fill:#2e3436;paint-order:normal"/>
+  </g>
+  <g id="button3-path" transform="translate(0,-34)">
+   <path id="p3" d="m69.516 216.63h111.39" style="color:#000000;fill:none;paint-order:normal;stroke-linecap:square;stroke:#888a85"/>
+   <rect id="button3-leader" x="68.814" y="216.13" width="1" height="1" style="color:#000000;text-align:end;overflow:visible;fill:#888a85;fill-opacity:1;stroke:none;stroke-linecap:round"/>
+   <rect id="r2" x="174.78" y="213.13" width="7" height="7" style="color:#000000;fill:#2e3436;paint-order:normal"/>
+  </g>
+  <g id="button5-path" transform="translate(-6.496 -20)">
+   <rect id="button5-leader" x="491.5" y="147.49" width="1" height="1" style="color:#000000;text-align:start;overflow:visible;fill:#888a85;fill-opacity:1;stroke:none;stroke-linecap:round"/>
+   <path id="p4" d="m491 147.99-210.13 4e-3" style="color:#000000;fill:none;paint-order:normal;stroke-linecap:square;stroke-width:1.002;stroke:#888a85"/>
+   <rect id="r3" x="276.93" y="144.46" width="7" height="7" style="color:#000000;fill:#2e3436;paint-order:normal"/>
+  </g>
+  <g id="button2-path">
+   <rect id="button2-leader" x="485" y="80.935" width="1" height="1" style="color:#000000;text-align:start;overflow:visible;fill:#888a85;fill-opacity:1;stroke:none;stroke-linecap:round"/>
+   <path id="p5" d="m274.02 81.435 210.48 2e-6" style="color:#000000;fill:none;paint-order:normal;stroke-linecap:square;stroke:#888a85"/>
+   <rect id="r4" x="270.43" y="77.936" width="7" height="7" style="color:#000000;fill:#2e3436;paint-order:normal"/>
+  </g>
+  <g id="button1-path" transform="translate(0 -12)">
+   <rect id="button1-leader" x="484.99" y="52.581" width="1" height="1" style="color:#000000;text-align:start;overflow:visible;fill:#888a85;fill-opacity:1;stroke:none;stroke-linecap:round"/>
+   <path id="p6" d="m329.18 53.081h155.82" style="color:#000000;fill:none;paint-order:normal;stroke-linecap:square;stroke:#888a85"/>
+   <rect id="r5" x="325.29" y="49.581" width="7" height="7" style="color:#000000;fill:#2e3436;paint-order:normal"/>
+  </g>
+  <g id="button0-path">
+   <rect id="button0-leader" x="68.719" y="52.581" width="1" height="1" style="color:#000000;text-align:end;overflow:visible;fill:#888a85;fill-opacity:1;stroke:none;stroke-linecap:round"/>
+   <path id="p7" d="m236.35 53.081-166.19 2e-6" style="color:#000000;fill:none;paint-order:normal;stroke-linecap:square;stroke:#888a85"/>
+   <rect id="r6" x="232.85" y="49.581" width="7" height="7" style="color:#000000;fill:#2e3436;paint-order:normal"/>
+  </g>
+ </g>
+ <g id="LEDs" transform="translate(-68.792 5.9733)">
+  <g id="led0-path" transform="translate(75.399 -88.914)">
+   <path id="p8" d="m410.09 329.53-124.44-5e-3" style="color:#000000;fill:none;paint-order:normal;stroke-linecap:square;stroke-width:.99982;stroke:#888a85"/>
+   <rect id="r7" x="281.48" y="326.02" width="7" height="7" style="color:#000000;fill:#2e3436;paint-order:normal"/>
+   <rect id="led0-leader" x="409.6" y="329.02" width="1" height="1" style="color:#000000;text-align:start;display:inline;overflow:visible;fill:#888a85;fill-opacity:1;stroke:none;stroke-linecap:round"/>
+  </g>
+ </g>
+</svg>
