@@ -119,8 +119,12 @@ class Window(Gtk.ApplicationWindow):
 
     def _on_device_removed(self, ratbag: Ratbagd, device: RatbagdDevice) -> None:
         mouse_perspective: MousePerspective = self._get_child("mouse_perspective")  # type: ignore
+        visible_perspective = self.stack_perspectives.get_visible_child_name()
 
-        if device is mouse_perspective.device:
+        if (
+            visible_perspective == "mouse_perspective"
+            and device is mouse_perspective.device
+        ):
             # The current device disconnected, which can only happen from the
             # mouse perspective as we'd otherwise be in the welcome screen with
             # more than one device remaining. Hence, we display the error
@@ -129,7 +133,7 @@ class Window(Gtk.ApplicationWindow):
                 _("Your device disconnected!"),
                 _("Please make sure your device is plugged in"),
             )
-        elif self.stack_perspectives.get_visible_child_name() == "welcome_perspective":
+        elif visible_perspective == "welcome_perspective":
             # We're in the welcome screen; just remove it from the list. If
             # there is nothing left, display the error perspective.
             welcome_perspective: WelcomePerspective = self._get_child("welcome_perspective")  # type: ignore
