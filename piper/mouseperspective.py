@@ -65,7 +65,8 @@ class MousePerspective(Gtk.Overlay):
 
     @GObject.Property
     def device(self) -> RatbagdDevice:
-        assert self._device is not None
+        if self._device is None:
+            raise RuntimeError("Device not set; call set_device() first")
         return self._device
 
     def set_device(self, device: RatbagdDevice) -> None:
@@ -81,7 +82,8 @@ class MousePerspective(Gtk.Overlay):
         )
 
         active_profile = device.active_profile
-        assert active_profile is not None
+        if active_profile is None:
+            raise RuntimeError("Device has no active profile")
         self._set_profile(active_profile)
 
         self.button_profile.set_visible(len(device.profiles) > 1)
