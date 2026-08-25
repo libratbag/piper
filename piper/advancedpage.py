@@ -178,8 +178,7 @@ class AdvancedPage(Gtk.Box):
                 self.rate_1000.set_active(True)
                 return
 
-        # TODO: think how we should handle this.
         print(
-            f"Profile was set to a weird report rate: {self._profile.report_rate}",
+            f"Profile was set to an unsupported report rate: {self._profile.report_rate}",
             file=sys.stderr,
         )

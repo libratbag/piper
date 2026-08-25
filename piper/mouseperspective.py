@@ -30,6 +30,7 @@ class MousePerspective(Gtk.Overlay):
     label_profile: Gtk.Label = Gtk.Template.Child()  # type: ignore
     listbox_profiles: Gtk.ListBox = Gtk.Template.Child()  # type: ignore
     notification_error: Gtk.Revealer = Gtk.Template.Child()  # type: ignore
+    notification_error_label: Gtk.Label = Gtk.Template.Child()  # type: ignore
     stack: Gtk.Stack = Gtk.Template.Child()  # type: ignore
 
     def __init__(self, *args, **kwargs) -> None:
@@ -126,20 +127,22 @@ class MousePerspective(Gtk.Overlay):
             )
         if profile.leds:
             self.stack.add_titled(LedsPage(self._device, profile), "leds", _("LEDs"))
-        # TODO: get rid of this duplicated logic.
-        are_report_rates_supported = (
-            profile.report_rate != 0 and len(profile.report_rates) != 0
-        )
-        if (
-            profile.angle_snapping != -1
-            or profile.debounces
-            or are_report_rates_supported
-        ):
+        if self._has_advanced_settings(profile):
             self.stack.add_titled(
                 AdvancedPage(self._device, profile), "advanced", _("Advanced")
             )
 
         self._on_profile_notify_dirty(profile, None)
+
+    def _has_advanced_settings(self, profile: RatbagdProfile) -> bool:
+        are_report_rates_supported = (
+            profile.report_rate != 0 and len(profile.report_rates) != 0
+        )
+        return (
+            profile.angle_snapping != -1
+            or profile.debounces
+            or are_report_rates_supported
+        )
 
     def _hide_notification_error(self) -> None:
         if self._notification_error_timeout_id != 0:
@@ -148,6 +151,12 @@ class MousePerspective(Gtk.Overlay):
         self.notification_error.set_reveal_child(False)
 
     def _show_notification_error(self) -> None:
+        self.show_notification(
+            _("Something went wrong. The device has been reset to a previous state.")
+        )
+
+    def show_notification(self, message: str) -> None:
+        self.notification_error_label.set_label(message)
         self.notification_error.set_reveal_child(True)
         self._notification_error_timeout_id = GLib.timeout_add_seconds(
             5, self._on_notification_error_timeout

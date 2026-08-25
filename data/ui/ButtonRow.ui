@@ -20,7 +20,8 @@
             <property name="can-focus">False</property>
             <property name="halign">start</property>
             <property name="label">Left mouse button click</property>
-            <property name="justify">center</property>
+            <property name="wrap">True</property>
+            <property name="max-width-chars">40</property>
             <property name="track-visited-links">False</property>
           </object>
           <packing>

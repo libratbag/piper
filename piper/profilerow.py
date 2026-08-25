@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
-import sys
+from gettext import gettext as _
 from typing import Optional
 
 import gi
@@ -16,7 +16,7 @@ from gi.repository import GObject, Gtk  # noqa
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ProfileRow.ui")
 class ProfileRow(Gtk.ListBoxRow):
     """A Gtk.ListBoxRow subclass containing the widgets to display a profile in
-    the profile poper."""
+    the profile popup."""
 
     __gtype_name__ = "ProfileRow"
 
@@ -47,8 +47,18 @@ class ProfileRow(Gtk.ListBoxRow):
         if not self._profile.is_active:
             self._profile.disabled = True
         else:
-            # TODO: display this in the app
-            print("Trying to disable the active profile", file=sys.stderr)
+            dialog = Gtk.MessageDialog(
+                transient_for=self.get_toplevel(),
+                modal=True,
+                message_type=Gtk.MessageType.WARNING,
+                buttons=Gtk.ButtonsType.CLOSE,
+                text=_("Cannot disable active profile"),
+            )
+            dialog.format_secondary_text(
+                _("Please switch to another profile before disabling this one.")
+            )
+            dialog.run()
+            dialog.destroy()
 
     def set_active(self) -> None:
         """Activates the profile paired with this row."""
