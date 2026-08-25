@@ -362,14 +362,27 @@ class ButtonDialog(Gtk.Dialog):
     def _on_row_activated(self, _listbox: Gtk.ListBox, row: ButtonRow) -> None:
         if row == self.row_keystroke:
             if self._grab_seat() is not True:
-                # TODO: display this somewhere in the UI instead.
-                print("Unable to grab keyboard, can't set keystroke", file=sys.stderr)
+                self._show_grab_error()
             else:
                 self._create_current_macro()
                 self.stack.set_visible_child_name("capture")
         else:
             self._action_type = row._action_type
             self._mapping = row._value
+
+    def _show_grab_error(self) -> None:
+        dialog = Gtk.MessageDialog(
+            transient_for=self,
+            modal=True,
+            message_type=Gtk.MessageType.WARNING,
+            buttons=Gtk.ButtonsType.CLOSE,
+            text=_("Unable to grab keyboard"),
+        )
+        dialog.format_secondary_text(
+            _("Cannot set keystroke: another application may be grabbing the keyboard.")
+        )
+        dialog.run()
+        dialog.destroy()
 
     @Gtk.Template.Callback("_on_apply_button_clicked")
     def _on_apply_button_clicked(self, button: Gtk.Button) -> Optional[bool]:

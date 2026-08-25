@@ -59,6 +59,14 @@ class Window(Gtk.ApplicationWindow):
                 _("Please update both piper and libratbag to the latest versions"),
             )
             return
+        except GLib.Error:
+            self._present_error_perspective(
+                _("Cannot connect to ratbagd"),
+                _(
+                    "Please make sure ratbagd is running and your user is in the required group"
+                ),
+            )
+            return
 
         for perspective in [MousePerspective(), WelcomePerspective()]:
             self._add_perspective(perspective, ratbag)
@@ -114,8 +122,7 @@ class Window(Gtk.ApplicationWindow):
             welcome_perspective.add_device(device)
         else:
             # We're configuring another device; just notify the user.
-            # TODO: show in-app notification?
-            print("Device connected")
+            self._show_device_notification(_("Device connected"))
 
     def _on_device_removed(self, ratbag: Ratbagd, device: RatbagdDevice) -> None:
         mouse_perspective: MousePerspective = self._get_child("mouse_perspective")  # type: ignore
@@ -145,8 +152,7 @@ class Window(Gtk.ApplicationWindow):
                 )
         else:
             # We're configuring another device; just notify the user.
-            # TODO: show in-app notification?
-            print("Device disconnected")
+            self._show_device_notification(_("Device disconnected"))
 
     def _add_perspective(self, perspective, ratbag: Optional[Ratbagd]) -> None:
         self.stack_perspectives.add_named(perspective, perspective.name)
@@ -210,6 +216,14 @@ class Window(Gtk.ApplicationWindow):
         if child is None:
             raise ValueError(f"Child `{name}` was not found")
         return child
+
+    def _show_device_notification(self, message: str) -> None:
+        visible_name = self.stack_perspectives.get_visible_child_name()
+        if visible_name == "mouse_perspective":
+            mouse_perspective: MousePerspective = self._get_child(
+                "mouse_perspective"
+            )  # type: ignore
+            mouse_perspective.show_notification(message)
 
     def _perspective_add_back_button(self, perspective, ratbag: Ratbagd) -> None:
         button_back = Gtk.Button.new_from_icon_name(
