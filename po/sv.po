@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-19 12:08+0200\n"
+"POT-Creation-Date: 2026-09-05 16:33+0000\n"
 "PO-Revision-Date: 2020-05-19 12:17+0200\n"
 "Last-Translator: Stephan Lachnit <stephanlachnit@protonmail.com>\n"
 "Language-Team: Swedish <>\n"
@@ -19,26 +19,34 @@ msgstr ""
 "X-Generator: Gtranslator 3.36.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: data/org.freedesktop.Piper.desktop.in:3
+#: data/org.freedesktop.Piper.desktop.in:2
+#: data/org.freedesktop.Piper.appdata.xml.in.in:10
 msgid "Piper"
 msgstr "Piper"
 
-#: data/org.freedesktop.Piper.desktop.in:4
-#: data/org.freedesktop.Piper.appdata.xml.in.in:8
+#: data/org.freedesktop.Piper.desktop.in:3
 msgid "Configurable mouse configuration utility"
 msgstr "Konfigurationsprogram för programmerbara möss"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/org.freedesktop.Piper.desktop.in:7
+#: data/org.freedesktop.Piper.desktop.in:6
 msgid "org.freedesktop.Piper"
 msgstr "org.freedesktop.Piper"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.freedesktop.Piper.desktop.in:12
+#: data/org.freedesktop.Piper.desktop.in:11
 msgid "gaming;configuration;mouse;mice;"
 msgstr "gaming;spel;konfiguration;mus;möss;"
 
-#: data/org.freedesktop.Piper.appdata.xml.in.in:10
+#: data/org.freedesktop.Piper.appdata.xml.in.in:5
+msgid "libratbag developers"
+msgstr "libratbags utvecklare"
+
+#: data/org.freedesktop.Piper.appdata.xml.in.in:11
+msgid "Gaming mouse configuration utility"
+msgstr "Konfigurationsverktyg för spelmus"
+
+#: data/org.freedesktop.Piper.appdata.xml.in.in:13
 msgid ""
 "Piper is a graphical user interface to configure gaming mice. Configuration "
 "options include changing the resolution (DPI) of the mouse, adding and "
@@ -48,7 +56,7 @@ msgstr ""
 "för att ändra musens upplösning (DPI), lägga till och ta bort profiler, "
 "ställa in LED färger och ändra knappbindningar."
 
-#: data/org.freedesktop.Piper.appdata.xml.in.in:16
+#: data/org.freedesktop.Piper.appdata.xml.in.in:19
 msgid ""
 "Piper requires libratbag’s ratbagd, the daemon to actually communicate with "
 "the mice. Piper is merely a front end to ratbagd, ratbagd must be installed "
@@ -58,254 +66,257 @@ msgstr ""
 "musen.Piper är bara ett användargränssnitt för ratbagd, ratbagd måste vara "
 "installerad och körs."
 
-#: data/org.freedesktop.Piper.appdata.xml.in.in:27
+#: data/org.freedesktop.Piper.appdata.xml.in.in:30
 msgid "The button configuraton page"
 msgstr "Öppna konfigurationsdialogen för knappar"
 
-#: data/org.freedesktop.Piper.appdata.xml.in.in:31
+#: data/org.freedesktop.Piper.appdata.xml.in.in:34
 msgid "The LED configuraton page"
 msgstr "Öppna konfigurationsdialogen för lysdioder"
 
-#: data/org.freedesktop.Piper.appdata.xml.in.in:35
+#: data/org.freedesktop.Piper.appdata.xml.in.in:38
 msgid "The resolution configuraton page"
 msgstr "Öppna konfigurationsdialogen för upplösningar"
 
-#. Translators: section header for mapping one button's click to another.
-#: piper/buttondialog.py:141
+#: piper/buttondialog.py:156
 msgid "Button mapping"
 msgstr "Knappbindning"
 
-#. Translators: section header for assigning special functions to buttons.
-#: piper/buttondialog.py:150
+#: piper/buttondialog.py:172
 msgid "Special mapping"
 msgstr "Speciell bindning"
 
+#: piper/buttondialog.py:182 data/ui/ResolutionRow.ui:104
+msgid "Disable"
+msgstr "Inaktivera"
+
+#: piper/buttondialog.py:182
+msgid "Other"
+msgstr "Annat"
+
 #. Translators: the {} will be replaced with the button index, e.g.
 #. "Button 1 click".
-#: piper/buttondialog.py:222 piper/buttonspage.py:90
+#: piper/buttondialog.py:257 piper/buttonspage.py:105
 msgid "Button {} click"
 msgstr "Knapp {} klick"
 
-#: piper/buttonspage.py:94
+#: piper/buttonspage.py:109
 msgid "Macro: {}"
 msgstr "Makro: {}"
 
+#: piper/buttonspage.py:111
+msgid "Key: {}"
+msgstr "Tangent: {}"
+
 #. Translators: the button is turned disabled, e.g. off.
-#: piper/buttonspage.py:97
+#: piper/buttonspage.py:114
 msgid "Disabled"
 msgstr "Inaktiverad"
 
 #. Translators: the button has an unknown function.
-#: piper/buttonspage.py:100 piper/ratbagd.py:665
+#: piper/buttonspage.py:117 piper/ratbagd.py:866
 msgid "Unknown"
 msgstr "Okänd"
 
-#: piper/buttonspage.py:108
+#: piper/buttonspage.py:131
 msgid "Configure button {}"
 msgstr "Konfigurera knapp {}"
 
-#: piper/mouseperspective.py:90 data/ui/ResolutionsPage.ui:209
+#: piper/mouseperspective.py:121 data/ui/ResolutionsPage.ui:78
 msgid "Resolutions"
 msgstr "Upplösningar"
 
-#: piper/mouseperspective.py:92
+#: piper/mouseperspective.py:125
 msgid "Buttons"
 msgstr "Knappar"
 
-#: piper/mouseperspective.py:94
+#: piper/mouseperspective.py:128
 msgid "LEDs"
 msgstr "Lysdioder"
 
-#: piper/ratbagd.py:655
+#: piper/mouseperspective.py:139
+msgid "Advanced"
+msgstr "Avancerat"
+
+#: piper/ratbagd.py:856
 msgid "Left mouse button click"
 msgstr "Vänster musklick"
 
-#: piper/ratbagd.py:656
+#: piper/ratbagd.py:857
 msgid "Right mouse button click"
 msgstr "Höger musklick"
 
-#: piper/ratbagd.py:657
+#: piper/ratbagd.py:858
 msgid "Middle mouse button click"
 msgstr "Mellersta musklick"
 
-#: piper/ratbagd.py:658
+#: piper/ratbagd.py:859
 msgid "Backward"
 msgstr "Bakåt"
 
-#: piper/ratbagd.py:659
+#: piper/ratbagd.py:860
 msgid "Forward"
 msgstr "Framåt"
 
-#: piper/ratbagd.py:664
+#: piper/ratbagd.py:865
 msgid "Invalid"
 msgstr "Ogiltig"
 
-#: piper/ratbagd.py:666
+#: piper/ratbagd.py:867
 msgid "Doubleclick"
 msgstr "Dubbelklick"
 
-#: piper/ratbagd.py:667
+#: piper/ratbagd.py:868
 msgid "Wheel Left"
 msgstr "Mushjul vänster"
 
-#: piper/ratbagd.py:668
+#: piper/ratbagd.py:869
 msgid "Wheel Right"
 msgstr "Mushjul höger"
 
-#: piper/ratbagd.py:669
+#: piper/ratbagd.py:870
 msgid "Wheel Up"
 msgstr "Mushjul Upp"
 
-#: piper/ratbagd.py:670
+#: piper/ratbagd.py:871
 msgid "Wheel Down"
 msgstr "Mushjul Ner"
 
-#: piper/ratbagd.py:671
+#: piper/ratbagd.py:872
 msgid "Ratchet Mode"
 msgstr "Spärrläge"
 
-#: piper/ratbagd.py:672
+#: piper/ratbagd.py:873
 msgid "Cycle Resolution Up"
 msgstr "Cykla upplösning upp"
 
-#: piper/ratbagd.py:673
+#: piper/ratbagd.py:874
 msgid "Cycle Resolution Down"
 msgstr "Cykla upplösning ner"
 
-#: piper/ratbagd.py:674
+#: piper/ratbagd.py:875
 msgid "Resolution Up"
 msgstr "Upplösning upp"
 
-#: piper/ratbagd.py:675
+#: piper/ratbagd.py:876
 msgid "Resolution Down"
 msgstr "Upplösning ner"
 
-#: piper/ratbagd.py:676
+#: piper/ratbagd.py:877
 msgid "Resolution Switch"
 msgstr "Växla upplösning"
 
-#: piper/ratbagd.py:677
+#: piper/ratbagd.py:878
 msgid "Default Resolution"
 msgstr "Standardupplösning"
 
-#: piper/ratbagd.py:678
+#: piper/ratbagd.py:879
 msgid "Cycle Profile Up"
 msgstr "Cykla profil upp"
 
-#: piper/ratbagd.py:679
+#: piper/ratbagd.py:880
 msgid "Cycle Profile Down"
 msgstr "Cykla profil ner"
 
-#: piper/ratbagd.py:680
+#: piper/ratbagd.py:881
 msgid "Profile Up"
 msgstr "Profil upp"
 
-#: piper/ratbagd.py:681
+#: piper/ratbagd.py:882
 msgid "Profile Down"
 msgstr "Profil ner"
 
-#: piper/ratbagd.py:682
+#: piper/ratbagd.py:883
 msgid "Second Mode"
 msgstr "Andra läget"
 
-#: piper/ratbagd.py:683
+#: piper/ratbagd.py:884
 msgid "Battery Level"
 msgstr "Batterinivå"
 
 #. Translators: this is used when there is no macro to preview.
-#: piper/ratbagd.py:813 data/ui/ButtonDialog.ui:106 data/ui/ButtonDialog.ui:187
+#: piper/ratbagd.py:1030 data/ui/ButtonDialog.ui:100
+#: data/ui/ButtonDialog.ui:181
 msgid "None"
 msgstr "Ingen"
 
 #. Translators: the LED is off.
-#: piper/ratbagd.py:895 data/ui/LedDialog.ui:395
+#: piper/ratbagd.py:1106 data/ui/LedDialog.ui:368
 msgid "Off"
 msgstr "Av"
 
 #. Translators: the LED has a single, solid color.
-#: piper/ratbagd.py:897 data/ui/LedDialog.ui:66
+#: piper/ratbagd.py:1108 data/ui/LedDialog.ui:59
 msgid "Solid"
 msgstr "Solid"
 
 #. Translators: the LED is cycling between red, green and blue.
-#: piper/ratbagd.py:899 data/ui/LedDialog.ui:189
+#: piper/ratbagd.py:1110 data/ui/LedDialog.ui:172
 msgid "Cycle"
 msgstr "Cykla"
 
 #. Translators: the LED's is pulsating a single color on different
 #. brightnesses.
-#: piper/ratbagd.py:902 data/ui/LedDialog.ui:355
+#: piper/ratbagd.py:1113 data/ui/LedDialog.ui:328
 msgid "Breathing"
 msgstr "Pulserande"
 
-#: piper/window.py:54
+#: piper/window.py:48
 msgid "Cannot connect to ratbagd"
 msgstr "Kan inte ansluta till ratbagd"
 
-#: piper/window.py:55
+#: piper/window.py:50
 msgid ""
 "Please make sure ratbagd is running and your user is in the required group"
 msgstr "Se till att ratbagd körs och att användaren är i den riktiga gruppen"
-
-#: piper/window.py:58
-msgid "Incompatible ratbagd API version (required: {}, provided: {})"
-msgstr "Inkompatibel ratbagd API version (behövs: {}, försedd: {})"
 
 #: piper/window.py:59
 msgid "Please update both piper and libratbag to the latest versions"
 msgstr "Uppdatera både Piper och libratbag till den senaste versionen"
 
-#: piper/window.py:73 piper/window.py:127
+#: piper/window.py:75 piper/window.py:143
 msgid "Cannot find any devices"
 msgstr "Kan inte hitta några enheter"
 
-#: piper/window.py:74 piper/window.py:128
+#: piper/window.py:76 piper/window.py:144
 msgid "Please make sure your device is supported and plugged in"
 msgstr "Se till att din enhet stöds och är ansluten"
 
-#: piper/window.py:86
+#: piper/window.py:91
 msgid "There are unapplied changes. Are you sure you want to quit?"
 msgstr "Det finns ej utförda förändringar. Är du säker på att du vill avsluta?"
 
-#: piper/window.py:95
+#: piper/window.py:102
 msgid "Ooops. ratbagd has disappeared"
 msgstr "Aj då. ratbagd är försvunnen"
 
-#: piper/window.py:96
+#: piper/window.py:102
 msgid "Please restart Piper"
 msgstr "Starta om Piper"
 
-#. The current device disconnected, which can only happen from the
-#. mouse perspective as we'd otherwise be in the welcome screen with
-#. more than one device remaining. Hence, we display the error
-#. perspective.
-#: piper/window.py:119
+#: piper/window.py:133
 msgid "Your device disconnected!"
 msgstr "Anslutningen till din enhet bröts!"
 
-#: piper/window.py:120
+#: piper/window.py:134
 msgid "Please make sure your device is plugged in"
 msgstr "Se till att din enhet är ansluten"
 
-#: piper/window.py:159
+#: piper/window.py:180
 msgid "Cannot display device SVG"
 msgstr "Kan inte visa enhetens SVG"
 
-#: piper/window.py:166
+#: piper/window.py:188
 msgid "Newer version of ratbagd required"
 msgstr "Nyare version av ratbagd behövs"
 
-#: piper/window.py:167
+#: piper/window.py:189
 msgid "Please update to the latest available version"
 msgstr "Uppdatera till senaste versionen"
 
-#: piper/window.py:169
+#: piper/window.py:193
 msgid "Unknown exception occurred"
 msgstr "Okänt fel av typ \"exception\" inträffade"
-
-#: data/ui/AboutDialog.ui.in:10
-msgid "Version: @version@"
-msgstr "Version: @version@"
 
 #: data/ui/AboutDialog.ui.in:12
 msgid "Visit Piper on GitHub"
@@ -315,35 +326,57 @@ msgstr "Besök Piper på GitHub"
 msgid "translator-credits"
 msgstr "Patrik Nilsson och Stephan Lachnit"
 
-#: data/ui/ButtonDialog.ui:65
+#. Translators: the rate at which the device reports movement.
+#: data/ui/AdvancedPage.ui:33
+msgid "Report rate"
+msgstr "Poll frekvens"
+
+#: data/ui/AdvancedPage.ui:50
+msgid "Change the profile’s report rate"
+msgstr "Ändra profilens poll frekvens"
+
+#: data/ui/AdvancedPage.ui:125
+msgid "Hz"
+msgstr "Hz"
+
+#: data/ui/AdvancedPage.ui:154
+msgid "Debounce time"
+msgstr "Studstid"
+
+#: data/ui/AdvancedPage.ui:183 data/ui/LedDialog.ui:138
+#: data/ui/LedDialog.ui:294
+msgid "ms"
+msgstr "ms"
+
+#: data/ui/AdvancedPage.ui:212
+msgid "Angle snapping"
+msgstr "Vinkellåsning"
+
+#: data/ui/ButtonDialog.ui:59
 msgid "Search for a button mapping"
 msgstr "Sök efter en knappbindning"
 
-#: data/ui/ButtonDialog.ui:91
+#: data/ui/ButtonDialog.ui:85
 msgid "Capture a macro for this button"
 msgstr "Spela in makro för den här knappen"
 
-#: data/ui/ButtonDialog.ui:104
+#: data/ui/ButtonDialog.ui:98
 msgid "The currently set macro"
 msgstr "Det nuvarande inställda makrot"
 
-#: data/ui/ButtonDialog.ui:129
+#: data/ui/ButtonDialog.ui:123
 msgid "Send keystroke"
 msgstr "Skicka knapptryckning"
 
-#: data/ui/ButtonDialog.ui:169
+#: data/ui/ButtonDialog.ui:163
 msgid "Enter a new key sequence for the macro."
 msgstr "Ange en ny nyckelsekvens för makrot."
 
-#: data/ui/ButtonDialog.ui:221
-msgid "Press Escape to cancel or Return to accept."
-msgstr "Tryck på Escape för att avbryta eller Retur för att acceptera."
-
-#: data/ui/ButtonDialog.ui:252
+#: data/ui/ButtonDialog.ui:229
 msgid "Set the device’s handedness."
 msgstr "Ställ in enheten för vänster eller höger-hänthet."
 
-#: data/ui/ButtonDialog.ui:270
+#: data/ui/ButtonDialog.ui:247
 msgid ""
 "This allows you to swap the order of the primary mouse buttons. In left-"
 "handed mode, the physical left mouse button generates a right mouse click "
@@ -352,118 +385,110 @@ msgstr ""
 "Detta låter dig skifta ordningen på de primära musknapparna. I vänsterhänt "
 "läge genererar den vänstra musknappen ett högerklick och vice versa."
 
-#: data/ui/ButtonDialog.ui:290
+#: data/ui/ButtonDialog.ui:267
 msgid "Left Handed"
 msgstr "Vänsterhänt"
 
-#: data/ui/ButtonDialog.ui:295
+#: data/ui/ButtonDialog.ui:272
 msgid "The left mouse button generates a left mouse click"
 msgstr "Den vänstra musknappen genererar ett vänsterklick"
 
-#: data/ui/ButtonDialog.ui:309
+#: data/ui/ButtonDialog.ui:286
 msgid "Right Handed"
 msgstr "Högerhänt"
 
-#: data/ui/ButtonDialog.ui:314
+#: data/ui/ButtonDialog.ui:291
 msgid "The left mouse button generates a right mouse click"
 msgstr "Den vänstra musknappen genererar ett högerklick"
 
-#: data/ui/ButtonDialog.ui:354 data/ui/LedDialog.ui:414
+#: data/ui/ButtonDialog.ui:331 data/ui/LedDialog.ui:394
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: data/ui/ButtonDialog.ui:356 data/ui/LedDialog.ui:418
+#: data/ui/ButtonDialog.ui:333 data/ui/LedDialog.ui:398
 msgid "Ignore any changes made"
 msgstr "Ignorera eventuella ändringar"
 
-#: data/ui/ButtonDialog.ui:362 data/ui/LedDialog.ui:430
-#: data/ui/MousePerspective.ui:132
+#: data/ui/ButtonDialog.ui:339 data/ui/LedDialog.ui:403
+#: data/ui/MousePerspective.ui:187
 msgid "Apply"
 msgstr "Tillämpa"
 
-#: data/ui/ButtonDialog.ui:365 data/ui/LedDialog.ui:435
+#: data/ui/ButtonDialog.ui:342 data/ui/LedDialog.ui:408
 msgid "Apply any changes made"
 msgstr "Tillämpa eventuella ändringar"
 
-#: data/ui/ButtonDialog.ui:405
+#: data/ui/ButtonDialog.ui:382
 msgid "No button mapping found"
 msgstr "Ingen knappbindning hittades"
 
-#: data/ui/ButtonDialog.ui:421
+#: data/ui/ButtonDialog.ui:398
 msgid "Try a different search"
 msgstr "Prova en annan sökning"
 
 #: data/ui/ErrorPerspective.ui:16
 msgid "Here, rodent, rodent, rodent…"
-msgstr "Hit, gnagare, gnagare, gnagare..."
+msgstr "Hit, gnagare, gnagare, gnagare…"
 
 #: data/ui/ErrorPerspective.ui:69
 msgid "Uh Oh! Something went wrong…"
-msgstr "Oj då! Något gick fel..."
+msgstr "Oj då! Något gick fel…"
 
-#: data/ui/ErrorPerspective.ui:73 data/ui/WelcomePerspective.ui:123
-msgid "Quit"
-msgstr "Avsluta"
-
-#: data/ui/LedDialog.ui:58 data/ui/LedDialog.ui:209
+#: data/ui/LedDialog.ui:51 data/ui/LedDialog.ui:192
 msgid "Choose a color for the LED"
 msgstr "Välj en färg för lysdioden"
 
-#: data/ui/LedDialog.ui:90 data/ui/LedDialog.ui:257
+#: data/ui/LedDialog.ui:78 data/ui/LedDialog.ui:235
 msgid "Choose a brightness for the LED"
 msgstr "Välj en ljusstyrka för lysdioden"
 
-#: data/ui/LedDialog.ui:104 data/ui/LedDialog.ui:270
+#: data/ui/LedDialog.ui:92 data/ui/LedDialog.ui:248
 msgid "Brightness"
 msgstr "Ljusstyrka"
 
-#: data/ui/LedDialog.ui:135 data/ui/LedDialog.ui:301
+#: data/ui/LedDialog.ui:120 data/ui/LedDialog.ui:276
 msgid "Choose an effect duration for the LED"
 msgstr "Välj en effektfrekvens för lysdioden"
 
-#: data/ui/LedDialog.ui:153 data/ui/LedDialog.ui:319
-msgid "ms"
-msgstr "ms"
-
-#: data/ui/LedDialog.ui:175 data/ui/LedDialog.ui:341
+#: data/ui/LedDialog.ui:158 data/ui/LedDialog.ui:314
 msgid "Effect duration"
 msgstr "Effektfrekvens"
 
-#: data/ui/LedDialog.ui:212
+#: data/ui/LedDialog.ui:195
 msgid "Pick a Color for the LED"
 msgstr "Välj en färg för lysdioden"
 
-#: data/ui/LedDialog.ui:226
+#: data/ui/LedDialog.ui:209
 msgid "Color"
 msgstr "Färg"
 
-#: data/ui/LedDialog.ui:380
+#: data/ui/LedDialog.ui:355
 msgid "This LED is off"
 msgstr "Den här lysdioden är av"
 
-#: data/ui/MousePerspective.ui:44
+#: data/ui/MousePerspective.ui:43
 msgid "Something went wrong. The device has been reset to a previous state."
 msgstr "Något gick fel. Enheten återställdes till ett tidigare tillstand."
 
-#: data/ui/MousePerspective.ui:101
-msgid "Select another profile"
-msgstr "Välj en annan profil"
-
-#: data/ui/MousePerspective.ui:126
-msgid "Commit the changes to the device"
-msgstr "Utför förändringarna i enheten"
-
-#: data/ui/MousePerspective.ui:170
+#: data/ui/MousePerspective.ui:116
 msgid "Click to switch to another profile"
 msgstr "Klicka för att växla till en annan profil"
 
-#: data/ui/MousePerspective.ui:185
+#: data/ui/MousePerspective.ui:131
 msgid "Add profile"
 msgstr "Lägg till profil"
 
-#: data/ui/MousePerspective.ui:189
+#: data/ui/MousePerspective.ui:135
 msgid "Add a new profile to the device"
 msgstr "Lägg till en ny profil till enheten"
+
+#: data/ui/MousePerspective.ui:163
+msgid "Select another profile"
+msgstr "Välj en annan profil"
+
+#: data/ui/MousePerspective.ui:181
+msgid "Commit the changes to the device"
+msgstr "Utför förändringarna i enheten"
 
 #: data/ui/OptionButton.ui:9
 msgid "Open the configuration dialog"
@@ -474,33 +499,27 @@ msgid "Remove this profile from the device"
 msgstr "Ta bort den här profilen från enheten"
 
 #. Translators: this is used to indicate the active resolution.
-#: data/ui/ResolutionRow.ui:37
-msgid "Active"
-msgstr "Aktiv"
+#: data/ui/ResolutionRow.ui:46
+msgid "active"
+msgstr "aktiv"
 
-#: data/ui/ResolutionRow.ui:77
-msgid "Set this resolution’s DPI"
+#: data/ui/ResolutionRow.ui:78
+msgid "Set this resolution's DPI"
 msgstr "Ange den här upplösningens DPI"
 
-#. Translators: the rate at which the device reports movement.
-#: data/ui/ResolutionsPage.ui:43
-msgid "Report rate"
-msgstr "Poll frekvens"
+#: data/ui/ResolutionRow.ui:110
+msgid "Disable this resolution"
+msgstr "Inaktivera denna upplösning"
 
-#: data/ui/ResolutionsPage.ui:60
-msgid "Change the profile’s report rate"
-msgstr "Ändra profilens poll frekvens"
+#: data/ui/ResolutionRow.ui:121
+msgid "Set active"
+msgstr "Aktivera"
 
-#: data/ui/ResolutionsPage.ui:105
-msgid "Hz"
-msgstr "Hz"
+#: data/ui/ResolutionRow.ui:126
+msgid "Set this resolution as active"
+msgstr "Ange denna upplösning som aktiv"
 
-#. Translators: the sensitivity of the device's sensor.
-#: data/ui/ResolutionsPage.ui:125
-msgid "Sensitivity"
-msgstr "Känslighet"
-
-#: data/ui/ResolutionsPage.ui:174
+#: data/ui/ResolutionsPage.ui:45
 msgid "Add a new resolution to the profile"
 msgstr "Lägg till en ny upplösning för profilen"
 
@@ -513,18 +532,35 @@ msgctxt "A subtitle under the \"Welcome\" title."
 msgid "Select a device to configure it"
 msgstr "Välj en enhet för att konfigurera den"
 
-#: data/ui/WelcomePerspective.ui:89
+#: data/ui/WelcomePerspective.ui:88
 msgctxt "A tooltip over the list of devices."
 msgid "Select a device to configure it"
 msgstr "Välj en enhet för att konfigurera den"
 
-#: data/ui/WelcomePerspective.ui:119
+#: data/ui/WelcomePerspective.ui:118
 msgid "Select a Device"
 msgstr "Välj en enhet"
 
 #: data/ui/Window.ui:8
 msgid "_About Piper"
 msgstr "_Om"
+
+#: piper/window.py:57
+#, python-brace-format
+msgid "Incompatible ratbagd API version (required: {e.required_version}, provided: {e.ratbagd_version})"
+msgstr "Inkompatibel ratbagd API-version (krävs: {e.required_version}, tillhandahålls: {e.ratbagd_version})"
+
+#~ msgid "Version: @version@"
+#~ msgstr "Version: @version@"
+
+#~ msgid "Press Escape to cancel or Return to accept."
+#~ msgstr "Tryck på Escape för att avbryta eller Retur för att acceptera."
+
+#~ msgid "Quit"
+#~ msgstr "Avsluta"
+
+#~ msgid "Sensitivity"
+#~ msgstr "Känslighet"
 
 #~ msgid "Profile {}"
 #~ msgstr "Profil {}"
