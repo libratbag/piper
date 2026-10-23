@@ -434,6 +434,7 @@ class RatbagdProfile(_RatbagdDBus):
     CAP_SET_DEFAULT = 101
     CAP_DISABLE = 102
     CAP_WRITE_ONLY = 103
+    CAP_BUTTON_LAYERS = 104
 
     def __init__(self, object_path):
         super().__init__("Profile", object_path)
@@ -649,6 +650,13 @@ class RatbagdProfile(_RatbagdDBus):
         Note that the list of buttons differs between profiles but the number
         of buttons is identical across profiles."""
         return self._buttons
+
+    @GObject.Property
+    def num_button_layers(self) -> int:
+        """The number of button layers, 2 if the device has a shift layer.
+        Older ratbagd versions do not provide this and have one layer."""
+        num_layers = self._get_dbus_property("NumButtonLayers")
+        return 1 if num_layers is None else num_layers
 
     @GObject.Property
     def leds(self):
@@ -898,6 +906,18 @@ class RatbagdButton(_RatbagdDBus):
     def index(self):
         """The index of this button."""
         return self._get_dbus_property("Index")
+
+    @GObject.Property
+    def layer(self) -> int:
+        """The button layer, 0 for the normal and 1 for the shifted layer."""
+        layer = self._get_dbus_property("Layer")
+        return 0 if layer is None else layer
+
+    @GObject.Property
+    def layer_index(self) -> int:
+        """The index of the physical button within its layer."""
+        layer_index = self._get_dbus_property("LayerIndex")
+        return self.index if layer_index is None else layer_index
 
     @GObject.Property
     def mapping(self):
