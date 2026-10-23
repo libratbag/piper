@@ -467,66 +467,23 @@ class RatbagdProfile(_RatbagdDBus):
             self._dirty = True
             self.notify("dirty")
 
+    # Map of DBus property names to (attribute_name, notify_signal_name)
+    _PROFILE_PROPERTY_MAP = {
+        "AngleSnapping": ("_angle_snapping", "angle-snapping"),
+        "Debounce": ("_debounce", "debounce"),
+        "Disabled": ("_disabled", "disabled"),
+        "IsActive": ("_active", "is-active"),
+        "IsDirty": ("_dirty", "dirty"),
+        "ReportRate": ("_report_rate", "report-rate"),
+    }
+
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
-        try:
-            angle_snapping = changed_props["AngleSnapping"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if angle_snapping != self._angle_snapping:
-                self._angle_snapping = angle_snapping
-                self.notify("angle-snapping")
-
-        try:
-            debounce = changed_props["Debounce"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if debounce != self._debounce:
-                self._debounce = debounce
-                self.notify("debounce")
-
-        try:
-            disabled = changed_props["Disabled"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if disabled != self._disabled:
-                self._disabled = disabled
-                self.notify("disabled")
-
-        try:
-            active = changed_props["IsActive"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if active != self._active:
-                self._active = active
-                self.notify("is-active")
-
-        try:
-            dirty = changed_props["IsDirty"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if dirty != self._dirty:
-                self._dirty = dirty
-                self.notify("dirty")
-
-        try:
-            report_rate = changed_props["ReportRate"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if report_rate != self._report_rate:
-                self._report_rate = report_rate
-                self.notify("report-rate")
+        for dbus_prop, (attr_name, signal_name) in self._PROFILE_PROPERTY_MAP.items():
+            if dbus_prop in changed_props.keys():
+                new_value = changed_props[dbus_prop]
+                if new_value != getattr(self, attr_name):
+                    setattr(self, attr_name, new_value)
+                    self.notify(signal_name)
 
     @GObject.Property
     def capabilities(self):
@@ -684,46 +641,31 @@ class RatbagdResolution(_RatbagdDBus):
             self._get_dbus_property_nonnull("Resolution")
         )
 
+    # Map of DBus property names to (attribute_name, notify_signal_name)
+    _RESOLUTION_PROPERTY_MAP = {
+        "IsActive": ("_active", "is-active"),
+        "IsDefault": ("_default", "is-default"),
+        "IsDisabled": ("_disabled", "is-disabled"),
+    }
+
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
-        try:
+        # Handle Resolution specially due to conversion
+        if "Resolution" in changed_props.keys():
             resolution = self._convert_resolution_from_dbus(changed_props["Resolution"])
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
             if resolution != self._resolution:
                 self._resolution = resolution
                 self.notify("resolution")
 
-        try:
-            active = changed_props["IsActive"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if active != self._active:
-                self._active = active
-                self.notify("is-active")
-
-        try:
-            default = changed_props["IsDefault"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if default != self._default:
-                self._default = default
-                self.notify("is-default")
-
-        try:
-            disabled = changed_props["IsDisabled"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if disabled != self._disabled:
-                self._disabled = disabled
-                self.notify("is-disabled")
+        # Handle other properties via the map
+        for dbus_prop, (
+            attr_name,
+            signal_name,
+        ) in self._RESOLUTION_PROPERTY_MAP.items():
+            if dbus_prop in changed_props.keys():
+                new_value = changed_props[dbus_prop]
+                if new_value != getattr(self, attr_name):
+                    setattr(self, attr_name, new_value)
+                    self.notify(signal_name)
 
     @GObject.Property
     def capabilities(self):
@@ -1191,43 +1133,18 @@ class RatbagdLed(_RatbagdDBus):
         """
         self._set_dbus_property("Brightness", "u", brightness)
 
+    # Map of DBus property names to (attribute_name, notify_signal_name)
+    _LED_PROPERTY_MAP = {
+        "Brightness": ("_brightness", "brightness"),
+        "Color": ("_color", "color"),
+        "EffectDuration": ("_effect_duration", "effect-duration"),
+        "Mode": ("_mode", "mode"),
+    }
+
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
-        try:
-            brightness = changed_props["Brightness"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if brightness != self._brightness:
-                self._brightness = brightness
-                self.notify("brightness")
-
-        try:
-            color = changed_props["Color"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if color != self._color:
-                self._color = color
-                self.notify("color")
-
-        try:
-            effect_duration = changed_props["EffectDuration"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if effect_duration != self._effect_duration:
-                self._effect_duration = effect_duration
-                self.notify("effect-duration")
-
-        try:
-            mode = changed_props["Mode"]
-        except KeyError:
-            # Different property changed, skip.
-            pass
-        else:
-            if mode != self._mode:
-                self._mode = mode
-                self.notify("mode")
+        for dbus_prop, (attr_name, signal_name) in self._LED_PROPERTY_MAP.items():
+            if dbus_prop in changed_props.keys():
+                new_value = changed_props[dbus_prop]
+                if new_value != getattr(self, attr_name):
+                    setattr(self, attr_name, new_value)
+                    self.notify(signal_name)

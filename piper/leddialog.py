@@ -86,17 +86,17 @@ class LedDialog(Gtk.Dialog):
         return self._modes[visible_child]
 
     @GObject.Property
-    def color(self) -> Tuple[float, float, float]:
+    def color(self) -> Tuple[int, int, int]:
         if self.mode == RatbagdLed.Mode.ON:
             rgba = self.colorchooser.get_rgba()
         else:
             rgba = self.colorbutton.get_rgba()
-        return (rgba.red * 255.0, rgba.green * 255.0, rgba.blue * 255.0)
+        return (int(rgba.red * 255.0), int(rgba.green * 255.0), int(rgba.blue * 255.0))
 
     @GObject.Property
-    def brightness(self) -> float:
-        return self.adjustment_brightness.get_value()
+    def brightness(self) -> int:
+        return int(self.adjustment_brightness.get_value())
 
     @GObject.Property
-    def effect_duration(self) -> float:
-        return self.adjustment_effect_duration.get_value()
+    def effect_duration(self) -> int:
+        return int(self.adjustment_effect_duration.get_value())

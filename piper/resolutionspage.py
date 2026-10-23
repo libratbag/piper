@@ -76,7 +76,7 @@ class ResolutionsPage(Gtk.Box):
                 self._last_activated_row.toggle_revealer()
 
             if row is self.add_resolution_row:
-                print("TODO: RatbagdProfile needs a way to add resolutions")
+                # Adding resolutions is not yet supported by the RatbagdProfile API
                 self._last_activated_row = None
             else:
                 self._last_activated_row = row
