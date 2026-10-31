@@ -47,7 +47,7 @@ commands to clone Piper and initialize the build:
 ```sh
 git clone https://github.com/libratbag/piper.git
 cd piper
-meson builddir --prefix=/usr/
+meson setup builddir --prefix=/usr/
 ```
 
 To build or re-build after code-changes and install, run:
