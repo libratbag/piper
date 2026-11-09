@@ -136,6 +136,15 @@ test(
 )
 
 test(
+  'application-ratbagd-reuse',
+  find_program('tests/application-test.py'),
+  args : [
+    join_paths(meson.current_build_dir(), 'data', 'piper.gresource'),
+    meson.current_source_dir(),
+  ],
+)
+
+test(
   'files-in-git',
   find_program('tests/check-files-in-git.sh'),
   args : [meson.current_source_dir()],
