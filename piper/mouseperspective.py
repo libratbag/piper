@@ -95,6 +95,9 @@ class MousePerspective(Gtk.Overlay):
                 self, profile, "notify::dirty", self._on_profile_notify_dirty
             )
             row = ProfileRow(profile)
+            connect_signal_with_weak_ref(
+                self, row, "notify::name", self._on_profile_row_name_changed
+            )
             self.listbox_profiles.insert(row, profile.index)
 
         self._on_profile_notify_disabled(active_profile, None)
@@ -185,6 +188,12 @@ class MousePerspective(Gtk.Overlay):
                 continue
             profile.disabled = False
             break
+
+    def _on_profile_row_name_changed(
+        self, row: ProfileRow, pspec: Optional[GObject.ParamSpec]
+    ) -> None:
+        if row.profile is self._profile:
+            self.label_profile.set_label(row.name)
 
     def _on_profile_notify_disabled(
         self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
