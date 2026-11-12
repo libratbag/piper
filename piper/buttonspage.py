@@ -5,6 +5,7 @@ from gettext import gettext as _
 from typing import Optional
 
 from .buttondialog import ButtonDialog
+from .macronames import ButtonMacroNames, default_store
 from .mousemap import MouseMap
 from .optionbutton import OptionButton
 from .ratbagd import (
@@ -39,6 +40,9 @@ class ButtonsPage(Gtk.Box):
 
         self._device = ratbagd_device
         self._profile = profile
+        self._macro_names = ButtonMacroNames(
+            default_store(), ratbagd_device.model, profile.index
+        )
 
         self._mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
         self.pack_start(self._mousemap, True, True, 0)
@@ -108,9 +112,22 @@ class ButtonsPage(Gtk.Box):
         elif action_type == RatbagdButton.ActionType.SPECIAL:
             label = _(RatbagdButton.SPECIAL_DESCRIPTION[ratbagd_button.special])
         elif action_type == RatbagdButton.ActionType.MACRO:
-            label = _("Macro: {}").format(str(ratbagd_button.macro))
+            name = self._macro_names.get(
+                ratbagd_button.index,
+                ratbagd_button.macro.keys,
+                RatbagdButton.Macro.WAIT,
+            )
+            label = _("Macro: {}").format(name or str(ratbagd_button.macro))
         elif action_type == RatbagdButton.ActionType.KEY:
-            label = _("Key: {}").format(evcode_to_str(ratbagd_button.key))
+            name = self._macro_names.get(
+                ratbagd_button.index,
+                self._key_events(ratbagd_button.key),
+                RatbagdButton.Macro.WAIT,
+            )
+            if name:
+                label = _("Macro: {}").format(name)
+            else:
+                label = _("Key: {}").format(evcode_to_str(ratbagd_button.key))
         elif action_type == RatbagdButton.ActionType.NONE:
             # Translators: the button is turned disabled, e.g. off.
             label = _("Disabled")
@@ -124,6 +141,14 @@ class ButtonsPage(Gtk.Box):
         optionbutton.set_label(
             _("{number}: {action}").format(number=ratbagd_button.index, action=label)
         )
+
+    @staticmethod
+    def _key_events(keycode: int) -> list:
+        # A single key as the events of a macro: pressed, then released.
+        return [
+            (RatbagdButton.Macro.KEY_PRESS, keycode),
+            (RatbagdButton.Macro.KEY_RELEASE, keycode),
+        ]
 
     def _on_button_clicked(
         self, button: OptionButton, ratbagd_button: RatbagdButton
@@ -139,6 +164,7 @@ class ButtonsPage(Gtk.Box):
             title=_("Configure button {}").format(ratbagd_button.index),
             use_header_bar=True,
             transient_for=self.get_toplevel(),
+            macro_names=self._macro_names,
         )
         dialog.connect("response", self._on_dialog_response, ratbagd_button)
         dialog.present()
@@ -162,6 +188,7 @@ class ButtonsPage(Gtk.Box):
     def _apply_dialog(
         self, dialog: ButtonDialog, ratbagd_button: RatbagdButton
     ) -> None:
+        self._store_macro_name(dialog, ratbagd_button)
         if dialog.action_type == RatbagdButton.ActionType.NONE:
             ratbagd_button.disable()
         elif dialog.action_type == RatbagdButton.ActionType.BUTTON:
@@ -195,6 +222,26 @@ class ButtonsPage(Gtk.Box):
                     if profile is self._profile:
                         continue
                     profile.buttons[index].special = dialog.mapping
+
+    def _store_macro_name(
+        self, dialog: ButtonDialog, ratbagd_button: RatbagdButton
+    ) -> None:
+        # Remember the name of the macro, before the mapping changes so the
+        # label that is refreshed by that already shows it.
+        wait = RatbagdButton.Macro.WAIT
+        if dialog.action_type == RatbagdButton.ActionType.MACRO:
+            self._macro_names.set(
+                ratbagd_button.index, dialog.macro_name, dialog.mapping.keys, wait
+            )
+        elif dialog.action_type == RatbagdButton.ActionType.KEY:
+            self._macro_names.set(
+                ratbagd_button.index,
+                dialog.macro_name,
+                self._key_events(dialog.mapping),
+                wait,
+            )
+        else:
+            self._macro_names.set(ratbagd_button.index, "", [], wait)
 
     def _find_button_type(self, button_type: int) -> Optional[RatbagdButton]:
         for button in self._profile.buttons:

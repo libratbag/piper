@@ -1110,6 +1110,72 @@ class RatbagdMacro(GObject.Object):
             self._macro.append((type, value))
             self.notify("keys")
 
+    MAX_DELAY_MS = 0xFFFF
+
+    @staticmethod
+    def _clamp_delay(milliseconds):
+        return max(1, min(int(milliseconds), RatbagdMacro.MAX_DELAY_MS))
+
+    def add_event(self, type, value):
+        """Appends an event without any de-duplication, unlike append()."""
+        self._macro.append((type, value))
+        self.notify("keys")
+
+    def add_delay(self, milliseconds):
+        """Appends a delay to the macro. Directly following delays are
+        combined into one, up to the longest delay the device can store.
+
+        @param milliseconds The delay in milliseconds, as int.
+        """
+        ms = self._clamp_delay(milliseconds)
+        if self._macro and self._macro[-1][0] == RatbagdButton.Macro.WAIT:
+            kind, previous = self._macro[-1]
+            self._macro[-1] = (kind, min(previous + ms, self.MAX_DELAY_MS))
+        else:
+            self._macro.append((RatbagdButton.Macro.WAIT, ms))
+        self.notify("keys")
+
+    def insert_delay(self, index, milliseconds):
+        """Inserts a delay so that it ends up at the given position."""
+        self._macro.insert(
+            index, (RatbagdButton.Macro.WAIT, self._clamp_delay(milliseconds))
+        )
+        self.notify("keys")
+
+    def set_delay(self, index, milliseconds):
+        """Changes the duration of the delay at the given position. This does
+        not emit notify::keys, as the caller is the one who changed it."""
+        kind, _ = self._macro[index]
+        if kind == RatbagdButton.Macro.WAIT:
+            self._macro[index] = (kind, self._clamp_delay(milliseconds))
+
+    def remove_at(self, index):
+        """Removes the event at the given position. Removing a key event also
+        removes the delay that follows it, or the one before it for the last
+        event, so no orphaned delays are left behind."""
+        if not 0 <= index < len(self._macro):
+            return
+        kind, _ = self._macro[index]
+        del self._macro[index]
+        if kind != RatbagdButton.Macro.WAIT:
+            if (
+                index < len(self._macro)
+                and self._macro[index][0] == RatbagdButton.Macro.WAIT
+            ):
+                del self._macro[index]
+            elif (
+                index > 0
+                and index - 1 < len(self._macro)
+                and self._macro[index - 1][0] == RatbagdButton.Macro.WAIT
+            ):
+                del self._macro[index - 1]
+        self.notify("keys")
+
+    def clear(self):
+        """Removes all events."""
+        self._macro.clear()
+        self.notify("keys")
+
 
 class RatbagdLed(_RatbagdDBus):
     """Represents a ratbagd led."""
