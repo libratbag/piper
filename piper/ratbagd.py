@@ -27,7 +27,7 @@ from enum import IntEnum
 from evdev import ecodes
 from gettext import gettext as _
 from gi.repository import Gio, GLib, GObject
-from typing import List, Optional, Tuple, Union
+from typing import Tuple, Union
 
 
 # Deferred translations, see https://docs.python.org/3/library/gettext.html#deferred-translations
@@ -297,9 +297,31 @@ class Ratbagd(_RatbagdDBus):
             raise RatbagdIncompatibleError(self.api_version or -1, api_version)
         self._devices = [RatbagdDevice(objpath) for objpath in result or []]
         self._proxy.connect("notify::g-name-owner", self._on_name_owner_changed)
+        # ratbagd exits after 20 idle minutes. Any message resets that timer,
+        # so ping it regularly for as long as we are running.
+        self._keepalive_id = GLib.timeout_add_seconds(
+            self._KEEPALIVE_INTERVAL, self._on_keepalive
+        )
+
+    _KEEPALIVE_INTERVAL = 5 * 60
+
+    def _on_keepalive(self):
+        try:
+            self._proxy.call_sync(
+                "org.freedesktop.DBus.Peer.Ping",
+                None,
+                Gio.DBusCallFlags.NO_AUTO_START,
+                5000,
+                None,
+            )
+        except GLib.Error as e:
+            print(f"ratbagd keepalive failed: {e.message}", file=sys.stderr)
+        return GLib.SOURCE_CONTINUE
 
     def _on_name_owner_changed(self, *kwargs):
-        self.emit("daemon-disappeared")
+        # only complain when the daemon went away, not when it appears
+        if self._proxy.get_name_owner() is None:
+            self.emit("daemon-disappeared")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
         try:
@@ -456,24 +478,12 @@ class RatbagdProfile(_RatbagdDBus):
         # lists, things will break!
         result = self._get_dbus_property("Resolutions") or []
         self._resolutions = [RatbagdResolution(objpath) for objpath in result]
-        self._subscribe_dirty(self._resolutions)
 
         result = self._get_dbus_property("Buttons") or []
         self._buttons = [RatbagdButton(objpath) for objpath in result]
-        self._subscribe_dirty(self._buttons)
 
         result = self._get_dbus_property("Leds") or []
         self._leds = [RatbagdLed(objpath) for objpath in result]
-        self._subscribe_dirty(self._leds)
-
-    def _subscribe_dirty(self, objects: List[GObject.GObject]):
-        for obj in objects:
-            obj.connect("notify", self._on_obj_notify)
-
-    def _on_obj_notify(self, obj: GObject.GObject, pspec: Optional[GObject.ParamSpec]):
-        if not self._dirty:
-            self._dirty = True
-            self.notify("dirty")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
         try:
