@@ -117,7 +117,13 @@ class ButtonsPage(Gtk.Box):
         else:
             # Translators: the button has an unknown function.
             label = _("Unknown")
-        optionbutton.set_label(label)
+        # Prefix the button number, the same one that is used in the title of
+        # the configuration dialog, so each label can be told apart.
+        # Translators: {number} is the button index, {action} what it does,
+        # e.g. "3: Left mouse button click".
+        optionbutton.set_label(
+            _("{number}: {action}").format(number=ratbagd_button.index, action=label)
+        )
 
     def _on_button_clicked(
         self, button: OptionButton, ratbagd_button: RatbagdButton
