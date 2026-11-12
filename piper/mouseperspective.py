@@ -103,6 +103,9 @@ class MousePerspective(Gtk.Overlay):
             self._connect_device_signal(
                 profile, "notify::dirty", self._on_profile_notify_dirty
             )
+            self._connect_device_signal(
+                profile, "notify::name", self._on_profile_notify_name
+            )
             row = ProfileRow(profile)
             self.listbox_profiles.insert(row, profile.index)
 
@@ -205,6 +208,12 @@ class MousePerspective(Gtk.Overlay):
         self.add_profile_button.set_sensitive(
             any(p.disabled for p in self._device.profiles)
         )
+
+    def _on_profile_notify_name(
+        self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
+    ) -> None:
+        if profile is self._profile:
+            self._select_profile_row(profile)
 
     def _on_profile_notify_dirty(
         self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]

@@ -486,6 +486,9 @@ class RatbagdProfile(_RatbagdDBus):
         self._leds = [RatbagdLed(objpath) for objpath in result]
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
+        if "Name" in changed_props.keys():
+            self.notify("name")
+
         try:
             angle_snapping = changed_props["AngleSnapping"]
         except KeyError:
@@ -567,6 +570,7 @@ class RatbagdProfile(_RatbagdDBus):
 
         @param name The new name, as str"""
         self._set_dbus_property("Name", "s", name)
+        self.notify("name")
 
     @GObject.Property
     def index(self):
