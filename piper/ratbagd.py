@@ -37,7 +37,9 @@ def N_(x):
 
 def evcode_to_str(evcode: int) -> str:
     # Values in ecodes.keys are stored as either a str or list[str].
-    value = ecodes.keys[evcode]
+    value = ecodes.keys.get(evcode)
+    if value is None:
+        return f"KEY_{evcode}"
     if isinstance(value, list):
         return value[0]
     return value
@@ -245,9 +247,10 @@ class _RatbagdDBus(GObject.GObject):
             res = self._proxy.call_sync(
                 method, val, Gio.DBusCallFlags.NO_AUTO_START, 2000, None
             )
-            if res in EXCEPTION_TABLE:
-                raise EXCEPTION_TABLE[res]
-            return res.unpack()[0]  # Result is always a tuple
+            result = res.unpack()[0]  # Result is always a tuple
+            if isinstance(result, int) and result in EXCEPTION_TABLE:
+                raise EXCEPTION_TABLE[result](f"{method} failed with {result}")
+            return result
         except GLib.Error as e:
             if e.code == Gio.IOErrorEnum.TIMED_OUT:
                 raise RatbagdDBusTimeoutError(e.message) from e
@@ -257,7 +260,12 @@ class _RatbagdDBus(GObject.GObject):
             raise
 
     def __eq__(self, other):
-        return other and self._object_path == other._object_path
+        if not isinstance(other, _RatbagdDBus):
+            return NotImplemented
+        return self._object_path == other._object_path
+
+    def __hash__(self):
+        return hash(self._object_path)
 
 
 class Ratbagd(_RatbagdDBus):
@@ -306,7 +314,7 @@ class Ratbagd(_RatbagdDBus):
                     device = RatbagdDevice(object_path)
                     self._devices.append(device)
                     self.emit("device-added", device)
-            for device in self.devices:
+            for device in list(self._devices):
                 if device._object_path not in new_device_object_paths:
                     self._devices.remove(device)
                     self.emit("device-removed", device)
@@ -1042,7 +1050,9 @@ class RatbagdMacro(GObject.Object):
                         idx += 1
             except IndexError:
                 pass
-            keys.append(self._MACRO_DESCRIPTION[t](v))
+            describe = self._MACRO_DESCRIPTION.get(t)
+            if describe is not None:  # NONE/unknown events have no description
+                keys.append(describe(v))
             idx += 1
         return " ".join(keys)
 

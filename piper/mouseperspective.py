@@ -9,7 +9,6 @@ from .ratbagd import RatbagdDevice, RatbagdProfile
 from .resolutionspage import ResolutionsPage
 from .advancedpage import AdvancedPage
 from .ledspage import LedsPage
-from .util.gobject import connect_signal_with_weak_ref
 
 import gi
 
@@ -38,6 +37,7 @@ class MousePerspective(Gtk.Overlay):
         self._device: Optional[RatbagdDevice] = None
         self._profile: Optional[RatbagdProfile] = None
         self._notification_error_timeout_id = 0
+        self._device_handlers: list = []
 
     @GObject.Property
     def name(self) -> str:
@@ -68,16 +68,25 @@ class MousePerspective(Gtk.Overlay):
         assert self._device is not None
         return self._device
 
+    def _connect_device_signal(self, obj, signal: str, func) -> None:
+        self._device_handlers.append((obj, obj.connect(signal, func)))
+
+    def _disconnect_device_signals(self) -> None:
+        for obj, handler in self._device_handlers:
+            if obj.handler_is_connected(handler):
+                obj.disconnect(handler)
+        self._device_handlers = []
+
     def set_device(self, device: RatbagdDevice) -> None:
+        # Drop handlers from a previously shown device so that it can no
+        # longer drive this perspective.
+        self._disconnect_device_signals()
         self._device = device
-        connect_signal_with_weak_ref(
-            self, device, "resync", lambda _: self._show_notification_error()
+        self._connect_device_signal(
+            device, "resync", lambda _: self._show_notification_error()
         )
-        connect_signal_with_weak_ref(
-            self,
-            self._device,
-            "active-profile-changed",
-            self._on_active_profile_changed,
+        self._connect_device_signal(
+            device, "active-profile-changed", self._on_active_profile_changed
         )
 
         active_profile = device.active_profile
@@ -88,11 +97,11 @@ class MousePerspective(Gtk.Overlay):
 
         self.listbox_profiles.foreach(Gtk.Widget.destroy)
         for profile in device.profiles:
-            connect_signal_with_weak_ref(
-                self, profile, "notify::disabled", self._on_profile_notify_disabled
+            self._connect_device_signal(
+                profile, "notify::disabled", self._on_profile_notify_disabled
             )
-            connect_signal_with_weak_ref(
-                self, profile, "notify::dirty", self._on_profile_notify_dirty
+            self._connect_device_signal(
+                profile, "notify::dirty", self._on_profile_notify_dirty
             )
             row = ProfileRow(profile)
             self.listbox_profiles.insert(row, profile.index)
@@ -148,6 +157,8 @@ class MousePerspective(Gtk.Overlay):
         self.notification_error.set_reveal_child(False)
 
     def _show_notification_error(self) -> None:
+        if self._notification_error_timeout_id != 0:
+            GLib.Source.remove(self._notification_error_timeout_id)
         self.notification_error.set_reveal_child(True)
         self._notification_error_timeout_id = GLib.timeout_add_seconds(
             5, self._on_notification_error_timeout
