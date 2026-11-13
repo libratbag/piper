@@ -1,16 +1,17 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 import sys
+from gettext import gettext as _
 from typing import Optional
 
 import gi
 
-from piper.ratbagd import RatbagdProfile
+from piper.ratbagd import RatbagdProfile, RatbagError
 
 from .util.gobject import connect_signal_with_weak_ref
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import GObject, Gtk  # noqa
+from gi.repository import GLib, GObject, Gtk  # noqa
 
 
 @Gtk.Template(resource_path="/org/freedesktop/Piper/ui/ProfileRow.ui")
@@ -29,13 +30,48 @@ class ProfileRow(Gtk.ListBoxRow):
             self, self._profile, "notify::disabled", self._on_profile_notify_disabled
         )
 
-        name = profile.name
-        if not name:
-            name = f"Profile {profile.index}"
+        connect_signal_with_weak_ref(
+            self, self._profile, "notify::name", self._on_profile_notify_name
+        )
 
-        self.title.set_text(name)
+        self._update_title()
         self.show_all()
         self.set_visible(not profile.disabled)
+
+    def _display_name(self) -> str:
+        name = self._profile.name
+        if not name:
+            name = _("Profile {}").format(self._profile.index + 1)
+        return name
+
+    def _update_title(self) -> None:
+        self.title.set_text(self._display_name())
+
+    def _on_profile_notify_name(
+        self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
+    ) -> None:
+        self._update_title()
+
+    @Gtk.Template.Callback("_on_rename_button_clicked")
+    def _on_rename_button_clicked(self, button: Gtk.Button) -> None:
+        popover = Gtk.Popover.new(button)
+        entry = Gtk.Entry(
+            text=self._profile.name or "",
+            max_length=23,
+            placeholder_text=_("Profile name"),
+            margin=6,
+        )
+        entry.connect("activate", self._on_rename_entry_activate, popover)
+        popover.add(entry)
+        entry.show()
+        popover.popup()
+
+    def _on_rename_entry_activate(self, entry: Gtk.Entry, popover: Gtk.Popover) -> None:
+        try:
+            self._profile.name = entry.get_text().strip()
+        except (GLib.Error, RatbagError) as e:
+            print(f"Cannot rename profile: {e}", file=sys.stderr)
+        popover.popdown()
 
     def _on_profile_notify_disabled(
         self, profile: RatbagdProfile, pspec: Optional[GObject.ParamSpec]
@@ -56,7 +92,7 @@ class ProfileRow(Gtk.ListBoxRow):
 
     @GObject.Property
     def name(self) -> str:
-        return self.title.get_text()
+        return self._display_name()
 
     @GObject.Property
     def profile(self) -> RatbagdProfile:
