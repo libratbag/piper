@@ -6,7 +6,7 @@ env:
   UBUNTU_DEPS: |
       pkg-config gettext appstream
       python3 python-gi-dev python3-lxml python3-evdev
-      gir1.2-rsvg-2.0 python3-gi-cairo flake8 gtk-update-icon-cache desktop-file-utils
+      gir1.2-gtk-3.0 gir1.2-rsvg-2.0 python3-gi-cairo flake8 gtk-update-icon-cache desktop-file-utils
   PIP_PACKAGES: meson ninja black==25.1.0 ruff==0.9.7
 
 jobs:
@@ -21,6 +21,8 @@ jobs:
             meson_args: '-Druntime-dependency-checks=false -Dbuildtype=plain'
           - name: release
             meson_args: '-Druntime-dependency-checks=false -Dbuildtype=release'
+          - name: runtime-checks
+            meson_args: ''
     steps:
       - uses: actions/checkout@v4
       - uses: libratbag/libratbag/.github/actions/pkginstall@master
