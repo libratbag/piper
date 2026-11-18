@@ -10,7 +10,7 @@ from .ratbagd import (
     RatbagdButton,
     RatbagdDevice,
     RatbagdProfile,
-    evcode_to_str,
+    evcode_to_friendly_str,
 )
 from .util.gobject import connect_signal_with_weak_ref
 
@@ -108,7 +108,7 @@ class ButtonsPage(Gtk.Box):
         elif action_type == RatbagdButton.ActionType.MACRO:
             label = _("Macro: {}").format(str(ratbagd_button.macro))
         elif action_type == RatbagdButton.ActionType.KEY:
-            label = _("Key: {}").format(evcode_to_str(ratbagd_button.key))
+            label = _("Key: {}").format(evcode_to_friendly_str(ratbagd_button.key))
         elif action_type == RatbagdButton.ActionType.NONE:
             # Translators: the button is turned disabled, e.g. off.
             label = _("Disabled")

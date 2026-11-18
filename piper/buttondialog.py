@@ -5,7 +5,14 @@ import sys
 from gettext import gettext as _
 from typing import List, Optional, Tuple, Union
 
-from .ratbagd import RatbagdButton, RatbagdMacro, RatbagDeviceType
+from evdev import ecodes
+
+from .ratbagd import (
+    MULTIMEDIA_KEY_NAMES,
+    RatbagdButton,
+    RatbagdMacro,
+    RatbagDeviceType,
+)
 
 import gi
 
@@ -175,6 +182,31 @@ class ButtonDialog(Gtk.Dialog):
             if (
                 self._action_type == RatbagdButton.ActionType.SPECIAL
                 and key == self._mapping
+            ):
+                self.listbox.select_row(row)
+            i += 1
+
+        quick_select_keys = [
+            ecodes.KEY_VOLUMEUP,
+            ecodes.KEY_VOLUMEDOWN,
+            ecodes.KEY_MUTE,
+            ecodes.KEY_PLAYPAUSE,
+            ecodes.KEY_NEXTSONG,
+            ecodes.KEY_PREVIOUSSONG,
+            ecodes.KEY_STOPCD,
+        ]
+        for keycode in quick_select_keys:
+            row = ButtonRow(
+                _(MULTIMEDIA_KEY_NAMES[keycode]),
+                _("Multimedia keys"),
+                RatbagdButton.ActionType.KEY,
+                keycode,
+            )
+            row.set_sensitive(RatbagdButton.ActionType.KEY in self._button.action_types)
+            self.listbox.insert(row, i)
+            if (
+                self._action_type == RatbagdButton.ActionType.KEY
+                and keycode == self._mapping
             ):
                 self.listbox.select_row(row)
             i += 1
