@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 from gettext import gettext as _
-from typing import Optional
+from typing import Dict, Optional
 
 from .buttondialog import ButtonDialog
 from .mousemap import MouseMap
@@ -38,8 +38,19 @@ class ButtonsPage(Gtk.Box):
         self._device = ratbagd_device
         self._profile = profile
 
+        self._button_widgets: Dict[int, OptionButton] = {}
+        self._ratbagd_buttons: Dict[int, RatbagdButton] = {}
+
         self._mousemap = MouseMap("#Buttons", self._device, spacing=20, border_width=20)
-        self.pack_start(self._mousemap, True, True, 0)
+        if profile.num_button_layers > 1:
+            # Overlay the layer switcher so it does not shift the MouseMap
+            # coordinates the buttons are positioned with.
+            overlay = Gtk.Overlay()
+            overlay.add(self._mousemap)
+            overlay.add_overlay(self._create_layer_switcher(profile.num_button_layers))
+            self.pack_start(overlay, True, True, 0)
+        else:
+            self.pack_start(self._mousemap, True, True, 0)
         self._sizegroup = Gtk.SizeGroup(mode=Gtk.SizeGroupMode.HORIZONTAL)
 
         for ratbagd_button in profile.buttons:
@@ -82,10 +93,48 @@ class ButtonsPage(Gtk.Box):
                 self._on_button_mapping_changed,
                 button,
             )
-            self._mousemap.add(button, f"#button{ratbagd_button.index}")
+            self._button_widgets[ratbagd_button.index] = button
+            self._ratbagd_buttons[ratbagd_button.index] = ratbagd_button
             self._sizegroup.add_widget(button)
 
+        self._populate_layer(0)
         self.show_all()
+
+    def _create_layer_switcher(self, num_layers: int) -> Gtk.Box:
+        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        box.get_style_context().add_class("linked")
+        box.set_halign(Gtk.Align.CENTER)
+        box.set_valign(Gtk.Align.START)
+        box.set_margin_top(10)
+
+        group = None
+        for layer in range(num_layers):
+            # Translators: the button layer active without and while
+            # holding the shift button (e.g. Easy-Shift, G-Shift).
+            label = _("Normal") if layer == 0 else _("Shifted")
+            radio = Gtk.RadioButton.new_with_label_from_widget(group, label)
+            radio.set_mode(False)
+            radio.connect("toggled", self._on_layer_toggled, layer)
+            box.pack_start(radio, False, False, 0)
+            group = group or radio
+        return box
+
+    def _populate_layer(self, layer: int) -> None:
+        """Shows the buttons of the given layer in the mouse map."""
+        for button_widget in self._button_widgets.values():
+            if button_widget.get_parent() is not None:
+                self._mousemap.remove(button_widget)
+
+        for index, ratbagd_button in self._ratbagd_buttons.items():
+            if ratbagd_button.layer == layer:
+                self._mousemap.add(
+                    self._button_widgets[index],
+                    f"#button{ratbagd_button.layer_index}",
+                )
+
+    def _on_layer_toggled(self, radio: Gtk.RadioButton, layer: int) -> None:
+        if radio.get_active():
+            self._populate_layer(layer)
 
     def _on_button_mapping_changed(
         self,
