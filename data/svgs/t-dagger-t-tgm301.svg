@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  T-Dagger Lieutenant T-TGM301 — Piper device SVG (top view).
+  Original drawing by the Piper-Tdagger author. Inline styles required.
+  Buttons: 0 L, 1 R, 2 wheel, 3 side-back, 4 side-fwd, 5 dpi-up, 6 dpi-down.
+  led0: the two side strips, one zone.
+  DPI up/down sit closer than 40px, so those leader ends step apart.
+-->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="480"
+   height="475"
+   viewBox="0 0 480 475"
+   version="1.1"
+   id="t-dagger-t-tgm301">
+  <g inkscape:groupmode="layer" inkscape:label="Device" id="Device">
+    <path id="base_outer" d="M 150.75,55.5 L 130.75,133 L 133.75,221.5 L 136.25,274.5 L 129.75,334 L 174.75,428.5 L 241,454.5 L 307.25,428.5 L 352.25,334 L 345.75,274.5 L 348.25,221.5 L 351.25,133 L 329.25,53.5 L 271.25,20 L 267.75,91 L 257.25,97.5 L 219.25,97.5 L 209.25,91.5 L 204.25,20.5 Z" style="fill:#ffffff;stroke:#3b3b3b;stroke-width:3;stroke-linejoin:round" />
+    <path id="side_lines" d="M 133.75,221.5 L 159.75,240.5 M 348.25,221.5 L 322.25,240.5" style="fill:none;stroke:#3b3b3b;stroke-width:3;stroke-linecap:round" />
+    <path id="center_bottom_seam" d="M 241,299 L 241,330" style="fill:none;stroke:#3b3b3b;stroke-width:3;stroke-linecap:round" />
+    <path id="button0" d="M 204.25,20.5 L 150.75,55.5 L 159.75,240.5 L 162.25,265.5 L 241,330 L 241,299 L 222.75,284.5 L 219.25,97.5 L 209.25,91.5 Z" style="fill:#e6e6e6;stroke:#3b3b3b;stroke-width:3;stroke-linejoin:round" />
+    <path id="button1" d="M 271.25,20 L 329.25,53.5 L 322.25,240.5 L 319.75,265.5 L 241,330 L 241,299 L 259.75,284.5 L 257.25,97.5 L 267.75,91 Z" style="fill:#e6e6e6;stroke:#3b3b3b;stroke-width:3;stroke-linejoin:round" />
+    <path id="center_island" d="M 219.25,97.5 L 257.25,97.5 L 259.75,284.5 L 241,299 L 222.75,284.5 Z" style="fill:#8c8c8c;stroke:#3b3b3b;stroke-width:3;stroke-linejoin:round" />
+    <rect id="scroll_slot" x="220.75" y="124" width="35" height="27.5" style="fill:#3b3b3b;stroke:none" />
+    <g id="button2">
+      <rect id="scroll_wheel" x="225.25" y="100.5" width="26" height="65" rx="5" style="fill:#d9d9d9;stroke:#3b3b3b;stroke-width:2.5" />
+      <rect id="scroll_inner" x="228.75" y="103.5" width="19" height="59" rx="2.5" style="fill:#e6e6e6;stroke:#3b3b3b;stroke-width:1" />
+      <path id="scroll_ridges" d="M 231.75,109 H 244.75 M 231.75,116.5 H 244.75 M 231.75,124 H 244.75 M 231.75,131.5 H 244.75 M 231.75,139 H 244.75 M 231.75,146.5 H 244.75 M 231.75,154 H 244.75" style="fill:none;stroke:#3b3b3b;stroke-width:2;stroke-linecap:round" />
+    </g>
+    <g id="button5">
+      <path id="dpi_up_box" d="M 228.25,212.5 L 241.25,203.5 L 254.25,212.5 L 254.25,233.5 L 228.25,233.5 Z" style="fill:#8c8c8c;stroke:#3b3b3b;stroke-width:2;stroke-linejoin:round" />
+      <path id="dpi_up_arrow" d="M 235.25,223.5 L 241.25,217.5 L 247.25,223.5" style="fill:none;stroke:#3b3b3b;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round" />
+    </g>
+    <g id="button6">
+      <path id="dpi_down_box" d="M 228.25,238 L 254.25,238 L 254.25,259 L 241.25,268 L 228.25,259 Z" style="fill:#8c8c8c;stroke:#3b3b3b;stroke-width:2;stroke-linejoin:round" />
+      <path id="dpi_down_arrow" d="M 235.25,249 L 241.25,255 L 247.25,249" style="fill:none;stroke:#3b3b3b;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round" />
+    </g>
+    <path id="button4" d="M 131.75,171.5 L 127.75,179 L 130.25,224 L 145.75,225.5 L 142.75,179.5 Z" style="fill:#8c8c8c;stroke:#3b3b3b;stroke-width:2.5;stroke-linejoin:round" />
+    <path id="button3" d="M 130.75,232.5 L 134.25,277.5 L 147.75,285.5 L 150.25,285.5 L 146.25,230.5 Z" style="fill:#8c8c8c;stroke:#3b3b3b;stroke-width:2.5;stroke-linejoin:round" />
+    <path id="palm_inner_left" d="M 162.25,265.5 L 174.75,428.5" style="fill:none;stroke:#3b3b3b;stroke-width:3;stroke-linecap:round" />
+    <path id="palm_inner_right" d="M 319.75,265.5 L 307.25,428.5" style="fill:none;stroke:#3b3b3b;stroke-width:3;stroke-linecap:round" />
+    <g id="led0">
+      <path id="led_left_v" d="M 138.25,284 L 146.25,290.5 L 171.25,419 L 129.75,334 L 131.25,322.5 L 163.25,389 Z" style="fill:#1be7ff;stroke:#3b3b3b;stroke-width:1.75;stroke-linejoin:round" />
+      <path id="led_right_v" d="M 343.75,284 L 335.75,290.5 L 310.75,419 L 352.25,334 L 350.75,322.5 L 318.75,389 Z" style="fill:#1be7ff;stroke:#3b3b3b;stroke-width:1.75;stroke-linejoin:round" />
+    </g>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="Buttons" id="Buttons">
+    <g id="button0-path">
+      <rect id="dot-button0" x="174.75" y="90.5" width="7" height="7" style="fill:#3b3b3b;stroke:none" />
+      <path id="line-button0" d="M 174.75,94 H 0" style="fill:none;stroke:#888a85;stroke-width:1;stroke-linecap:square" />
+      <rect id="button0-leader" x="0" y="93.5" width="1" height="1" style="fill:#888a85;stroke:none;text-align:end" />
+    </g>
+    <g id="button4-path">
+      <rect id="dot-button4" x="132.75" y="199" width="7" height="7" style="fill:#3b3b3b;stroke:none" />
+      <path id="line-button4" d="M 132.75,202.5 H 0" style="fill:none;stroke:#888a85;stroke-width:1;stroke-linecap:square" />
+      <rect id="button4-leader" x="0" y="202" width="1" height="1" style="fill:#888a85;stroke:none;text-align:end" />
+    </g>
+    <g id="button3-path">
+      <rect id="dot-button3" x="136.25" y="261.5" width="7" height="7" style="fill:#3b3b3b;stroke:none" />
+      <path id="line-button3" d="M 136.25,265 H 0" style="fill:none;stroke:#888a85;stroke-width:1;stroke-linecap:square" />
+      <rect id="button3-leader" x="0" y="264.5" width="1" height="1" style="fill:#888a85;stroke:none;text-align:end" />
+    </g>
+    <g id="button1-path">
+      <rect id="dot-button1" x="302.25" y="90.5" width="7" height="7" style="fill:#3b3b3b;stroke:none" />
+      <path id="line-button1" d="M 309.25,94 H 479" style="fill:none;stroke:#888a85;stroke-width:1;stroke-linecap:square" />
+      <rect id="button1-leader" x="479" y="93.5" width="1" height="1" style="fill:#888a85;stroke:none;text-align:start" />
+    </g>
+    <g id="button2-path">
+      <rect id="dot-button2" x="248.75" y="133.5" width="7" height="7" style="fill:#3b3b3b;stroke:none" />
+      <path id="line-button2" d="M 255.75,137 H 479" style="fill:none;stroke:#888a85;stroke-width:1;stroke-linecap:square" />
+      <rect id="button2-leader" x="479" y="136.5" width="1" height="1" style="fill:#888a85;stroke:none;text-align:start" />
+    </g>
+    <g id="button5-path">
+      <rect id="dot-button5" x="250.75" y="216" width="7" height="7" style="fill:#3b3b3b;stroke:none" />
+      <path id="line-button5" d="M 257.75,219.5 V 208 H 479" style="fill:none;stroke:#888a85;stroke-width:1;stroke-linecap:square" />
+      <rect id="button5-leader" x="479" y="207.5" width="1" height="1" style="fill:#888a85;stroke:none;text-align:start" />
+    </g>
+    <g id="button6-path">
+      <rect id="dot-button6" x="250.75" y="249" width="7" height="7" style="fill:#3b3b3b;stroke:none" />
+      <path id="line-button6" d="M 257.75,252.5 V 256 H 479" style="fill:none;stroke:#888a85;stroke-width:1;stroke-linecap:square" />
+      <rect id="button6-leader" x="479" y="255.5" width="1" height="1" style="fill:#888a85;stroke:none;text-align:start" />
+    </g>
+  </g>
+  <g inkscape:groupmode="layer" inkscape:label="LEDs" id="LEDs">
+    <g id="led0-path">
+      <rect id="dot-led0" x="326.25" y="343" width="7" height="7" style="fill:#3b3b3b;stroke:none" />
+      <path id="line-led0" d="M 333.25,346.5 H 479" style="fill:none;stroke:#888a85;stroke-width:1;stroke-linecap:square" />
+      <rect id="led0-leader" x="479" y="346" width="1" height="1" style="fill:#888a85;stroke:none;text-align:start" />
+    </g>
+  </g>
+</svg>
