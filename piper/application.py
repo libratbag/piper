@@ -39,8 +39,8 @@ class Application(Gtk.Application):
 
     def init_ratbagd(self) -> Ratbagd:
         if self._ratbagd is None:
-            self._ratbag = Ratbagd(self._required_ratbagd_version)
-        return self._ratbag
+            self._ratbagd = Ratbagd(self._required_ratbagd_version)
+        return self._ratbagd
 
     def do_activate(self) -> None:
         """This function is called when the user requests a new window to be
