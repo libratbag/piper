@@ -54,8 +54,8 @@ class Window(Gtk.ApplicationWindow):
         except RatbagdIncompatibleError as e:
             self._present_error_perspective(
                 _(
-                    f"Incompatible ratbagd API version (required: {e.required_version}, provided: {e.ratbagd_version})"
-                ),
+                    "Incompatible ratbagd API version (required: {required}, provided: {provided})"
+                ).format(required=e.required_version, provided=e.ratbagd_version),
                 _("Please update both piper and libratbag to the latest versions"),
             )
             return

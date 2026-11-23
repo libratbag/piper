@@ -213,7 +213,7 @@ class ResolutionRow(Gtk.ListBoxRow):
             self._on_dpi_values_changed(res=closest_res)
 
             with self.scale.handler_block(self._scale_handler):
-                self.scale.set_value(res)
+                self.scale.set_value(closest_res)
         except ValueError:
             # If the input is not a valid integer, reset to the current value.
             entry.set_text(str(self._resolution.resolution[0]))

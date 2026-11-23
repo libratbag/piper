@@ -82,7 +82,7 @@
                               <object class="GtkListBoxRow" id="row_keystroke">
                                 <property name="visible">True</property>
                                 <property name="can-focus">True</property>
-                                <property name="tooltip-text" translatable="yes">Capture a macro for this button</property>
+                                <property name="tooltip-text" translatable="yes">Record a macro for this button</property>
                                 <child>
                                   <object class="GtkBox">
                                     <property name="visible">True</property>
@@ -120,7 +120,7 @@
                                         <property name="visible">True</property>
                                         <property name="can-focus">False</property>
                                         <property name="halign">start</property>
-                                        <property name="label" translatable="yes">Send keystroke</property>
+                                        <property name="label" translatable="yes">Record macro</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -149,65 +149,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox">
+              <object class="GtkBox" id="capture_box">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="halign">center</property>
-                <property name="valign">center</property>
                 <property name="orientation">vertical</property>
-                <property name="spacing">18</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Enter a new key sequence for the macro.</property>
-                    <property name="justify">center</property>
-                    <property name="wrap">True</property>
-                    <property name="wrap-mode">word-char</property>
-                    <property name="width-chars">15</property>
-                    <property name="max-width-chars">20</property>
-                    <property name="track-visited-links">False</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label_preview">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">None</property>
-                    <property name="justify">center</property>
-                    <property name="wrap">True</property>
-                    <property name="max-width-chars">30</property>
-                    <property name="track-visited-links">False</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkImage">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="resource">/org/freedesktop/Piper/enter-keyboard-shortcut.svg</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
+                <property name="spacing">12</property>
+                <property name="margin">12</property>
               </object>
               <packing>
                 <property name="name">capture</property>

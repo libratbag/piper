@@ -27,7 +27,7 @@ from enum import IntEnum
 from evdev import ecodes
 from gettext import gettext as _
 from gi.repository import Gio, GLib, GObject
-from typing import List, Optional, Tuple, Union
+from typing import Tuple, Union
 
 
 # Deferred translations, see https://docs.python.org/3/library/gettext.html#deferred-translations
@@ -37,7 +37,9 @@ def N_(x):
 
 def evcode_to_str(evcode: int) -> str:
     # Values in ecodes.keys are stored as either a str or list[str].
-    value = ecodes.keys[evcode]
+    value = ecodes.keys.get(evcode)
+    if value is None:
+        return f"KEY_{evcode}"
     if isinstance(value, list):
         return value[0]
     return value
@@ -245,9 +247,10 @@ class _RatbagdDBus(GObject.GObject):
             res = self._proxy.call_sync(
                 method, val, Gio.DBusCallFlags.NO_AUTO_START, 2000, None
             )
-            if res in EXCEPTION_TABLE:
-                raise EXCEPTION_TABLE[res]
-            return res.unpack()[0]  # Result is always a tuple
+            result = res.unpack()[0]  # Result is always a tuple
+            if isinstance(result, int) and result in EXCEPTION_TABLE:
+                raise EXCEPTION_TABLE[result](f"{method} failed with {result}")
+            return result
         except GLib.Error as e:
             if e.code == Gio.IOErrorEnum.TIMED_OUT:
                 raise RatbagdDBusTimeoutError(e.message) from e
@@ -257,7 +260,12 @@ class _RatbagdDBus(GObject.GObject):
             raise
 
     def __eq__(self, other):
-        return other and self._object_path == other._object_path
+        if not isinstance(other, _RatbagdDBus):
+            return NotImplemented
+        return self._object_path == other._object_path
+
+    def __hash__(self):
+        return hash(self._object_path)
 
 
 class Ratbagd(_RatbagdDBus):
@@ -289,9 +297,31 @@ class Ratbagd(_RatbagdDBus):
             raise RatbagdIncompatibleError(self.api_version or -1, api_version)
         self._devices = [RatbagdDevice(objpath) for objpath in result or []]
         self._proxy.connect("notify::g-name-owner", self._on_name_owner_changed)
+        # ratbagd exits after 20 idle minutes. Any message resets that timer,
+        # so ping it regularly for as long as we are running.
+        self._keepalive_id = GLib.timeout_add_seconds(
+            self._KEEPALIVE_INTERVAL, self._on_keepalive
+        )
+
+    _KEEPALIVE_INTERVAL = 5 * 60
+
+    def _on_keepalive(self):
+        try:
+            self._proxy.call_sync(
+                "org.freedesktop.DBus.Peer.Ping",
+                None,
+                Gio.DBusCallFlags.NO_AUTO_START,
+                5000,
+                None,
+            )
+        except GLib.Error as e:
+            print(f"ratbagd keepalive failed: {e.message}", file=sys.stderr)
+        return GLib.SOURCE_CONTINUE
 
     def _on_name_owner_changed(self, *kwargs):
-        self.emit("daemon-disappeared")
+        # only complain when the daemon went away, not when it appears
+        if self._proxy.get_name_owner() is None:
+            self.emit("daemon-disappeared")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
         try:
@@ -306,7 +336,7 @@ class Ratbagd(_RatbagdDBus):
                     device = RatbagdDevice(object_path)
                     self._devices.append(device)
                     self.emit("device-added", device)
-            for device in self.devices:
+            for device in list(self._devices):
                 if device._object_path not in new_device_object_paths:
                     self._devices.remove(device)
                     self.emit("device-removed", device)
@@ -448,26 +478,17 @@ class RatbagdProfile(_RatbagdDBus):
         # lists, things will break!
         result = self._get_dbus_property("Resolutions") or []
         self._resolutions = [RatbagdResolution(objpath) for objpath in result]
-        self._subscribe_dirty(self._resolutions)
 
         result = self._get_dbus_property("Buttons") or []
         self._buttons = [RatbagdButton(objpath) for objpath in result]
-        self._subscribe_dirty(self._buttons)
 
         result = self._get_dbus_property("Leds") or []
         self._leds = [RatbagdLed(objpath) for objpath in result]
-        self._subscribe_dirty(self._leds)
-
-    def _subscribe_dirty(self, objects: List[GObject.GObject]):
-        for obj in objects:
-            obj.connect("notify", self._on_obj_notify)
-
-    def _on_obj_notify(self, obj: GObject.GObject, pspec: Optional[GObject.ParamSpec]):
-        if not self._dirty:
-            self._dirty = True
-            self.notify("dirty")
 
     def _on_properties_changed(self, proxy, changed_props, invalidated_props):
+        if "Name" in changed_props.keys():
+            self.notify("name")
+
         try:
             angle_snapping = changed_props["AngleSnapping"]
         except KeyError:
@@ -549,6 +570,7 @@ class RatbagdProfile(_RatbagdDBus):
 
         @param name The new name, as str"""
         self._set_dbus_property("Name", "s", name)
+        self.notify("name")
 
     @GObject.Property
     def index(self):
@@ -1042,7 +1064,9 @@ class RatbagdMacro(GObject.Object):
                         idx += 1
             except IndexError:
                 pass
-            keys.append(self._MACRO_DESCRIPTION[t](v))
+            describe = self._MACRO_DESCRIPTION.get(t)
+            if describe is not None:  # NONE/unknown events have no description
+                keys.append(describe(v))
             idx += 1
         return " ".join(keys)
 
@@ -1085,6 +1109,72 @@ class RatbagdMacro(GObject.Object):
         if len(self._macro) == 0 or (type, value) != self._macro[-1]:
             self._macro.append((type, value))
             self.notify("keys")
+
+    MAX_DELAY_MS = 0xFFFF
+
+    @staticmethod
+    def _clamp_delay(milliseconds):
+        return max(1, min(int(milliseconds), RatbagdMacro.MAX_DELAY_MS))
+
+    def add_event(self, type, value):
+        """Appends an event without any de-duplication, unlike append()."""
+        self._macro.append((type, value))
+        self.notify("keys")
+
+    def add_delay(self, milliseconds):
+        """Appends a delay to the macro. Directly following delays are
+        combined into one, up to the longest delay the device can store.
+
+        @param milliseconds The delay in milliseconds, as int.
+        """
+        ms = self._clamp_delay(milliseconds)
+        if self._macro and self._macro[-1][0] == RatbagdButton.Macro.WAIT:
+            kind, previous = self._macro[-1]
+            self._macro[-1] = (kind, min(previous + ms, self.MAX_DELAY_MS))
+        else:
+            self._macro.append((RatbagdButton.Macro.WAIT, ms))
+        self.notify("keys")
+
+    def insert_delay(self, index, milliseconds):
+        """Inserts a delay so that it ends up at the given position."""
+        self._macro.insert(
+            index, (RatbagdButton.Macro.WAIT, self._clamp_delay(milliseconds))
+        )
+        self.notify("keys")
+
+    def set_delay(self, index, milliseconds):
+        """Changes the duration of the delay at the given position. This does
+        not emit notify::keys, as the caller is the one who changed it."""
+        kind, _ = self._macro[index]
+        if kind == RatbagdButton.Macro.WAIT:
+            self._macro[index] = (kind, self._clamp_delay(milliseconds))
+
+    def remove_at(self, index):
+        """Removes the event at the given position. Removing a key event also
+        removes the delay that follows it, or the one before it for the last
+        event, so no orphaned delays are left behind."""
+        if not 0 <= index < len(self._macro):
+            return
+        kind, _ = self._macro[index]
+        del self._macro[index]
+        if kind != RatbagdButton.Macro.WAIT:
+            if (
+                index < len(self._macro)
+                and self._macro[index][0] == RatbagdButton.Macro.WAIT
+            ):
+                del self._macro[index]
+            elif (
+                index > 0
+                and index - 1 < len(self._macro)
+                and self._macro[index - 1][0] == RatbagdButton.Macro.WAIT
+            ):
+                del self._macro[index - 1]
+        self.notify("keys")
+
+    def clear(self):
+        """Removes all events."""
+        self._macro.clear()
+        self.notify("keys")
 
 
 class RatbagdLed(_RatbagdDBus):
