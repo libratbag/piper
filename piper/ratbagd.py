@@ -279,6 +279,7 @@ class Ratbagd(_RatbagdDBus):
     }
 
     def __init__(self, api_version):
+        self._devices = []
         super().__init__("Manager", None)
         result = self._get_dbus_property("Devices")
         if result is None and not self._proxy.get_cached_property_names():
