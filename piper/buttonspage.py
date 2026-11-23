@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
+import sys
 from gettext import gettext as _
 from typing import Optional
 
@@ -9,6 +10,7 @@ from .optionbutton import OptionButton
 from .ratbagd import (
     RatbagdButton,
     RatbagdDevice,
+    RatbagError,
     RatbagdProfile,
     evcode_to_str,
 )
@@ -17,7 +19,7 @@ from .util.gobject import connect_signal_with_weak_ref
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GObject  # noqa
+from gi.repository import GLib, Gtk, GObject  # noqa
 
 
 class ButtonsPage(Gtk.Box):
@@ -143,41 +145,50 @@ class ButtonsPage(Gtk.Box):
     ) -> None:
         # The user either pressed cancel or apply. If it's apply, apply the
         # changes before closing the dialog, otherwise just close the dialog.
-        if response == Gtk.ResponseType.APPLY:
-            if dialog.action_type == RatbagdButton.ActionType.NONE:
-                ratbagd_button.disable()
-            elif dialog.action_type == RatbagdButton.ActionType.BUTTON:
-                if dialog.mapping in [
-                    ButtonDialog.LEFT_HANDED_MODE,
-                    ButtonDialog.RIGHT_HANDED_MODE,
-                ]:
-                    left = self._find_button_type(0)
-                    right = self._find_button_type(1)
-                    if left is None or right is None:
-                        return
-                    # Mappings are 1-indexed, so 1 is left mouse click and 2 is
-                    # right mouse click.
-                    if dialog.mapping == ButtonDialog.LEFT_HANDED_MODE:
-                        left.mapping, right.mapping = 2, 1
-                    elif dialog.mapping == ButtonDialog.RIGHT_HANDED_MODE:
-                        left.mapping, right.mapping = 1, 2
-                else:
-                    ratbagd_button.mapping = dialog.mapping
-            elif dialog.action_type == RatbagdButton.ActionType.MACRO:
-                ratbagd_button.macro = dialog.mapping
-            elif dialog.action_type == RatbagdButton.ActionType.KEY:
-                ratbagd_button.key = dialog.mapping
-            elif dialog.action_type == RatbagdButton.ActionType.SPECIAL:
-                ratbagd_button.special = dialog.mapping
-                lower = RatbagdButton.ActionSpecial.PROFILE_CYCLE_UP
-                upper = RatbagdButton.ActionSpecial.PROFILE_DOWN
-                if lower <= dialog.mapping <= upper:
-                    index = ratbagd_button.index
-                    for profile in self._device.profiles:
-                        if profile is self._profile:
-                            continue
-                        profile.buttons[index].special = dialog.mapping
-        dialog.destroy()
+        try:
+            if response == Gtk.ResponseType.APPLY:
+                self._apply_dialog(dialog, ratbagd_button)
+        except (GLib.Error, RatbagError) as e:
+            print(f"Failed to apply button mapping: {e}", file=sys.stderr)
+        finally:
+            dialog.destroy()
+
+    def _apply_dialog(
+        self, dialog: ButtonDialog, ratbagd_button: RatbagdButton
+    ) -> None:
+        if dialog.action_type == RatbagdButton.ActionType.NONE:
+            ratbagd_button.disable()
+        elif dialog.action_type == RatbagdButton.ActionType.BUTTON:
+            if dialog.mapping in [
+                ButtonDialog.LEFT_HANDED_MODE,
+                ButtonDialog.RIGHT_HANDED_MODE,
+            ]:
+                left = self._find_button_type(0)
+                right = self._find_button_type(1)
+                if left is None or right is None:
+                    return
+                # Mappings are 1-indexed, so 1 is left mouse click and 2 is
+                # right mouse click.
+                if dialog.mapping == ButtonDialog.LEFT_HANDED_MODE:
+                    left.mapping, right.mapping = 2, 1
+                elif dialog.mapping == ButtonDialog.RIGHT_HANDED_MODE:
+                    left.mapping, right.mapping = 1, 2
+            else:
+                ratbagd_button.mapping = dialog.mapping
+        elif dialog.action_type == RatbagdButton.ActionType.MACRO:
+            ratbagd_button.macro = dialog.mapping
+        elif dialog.action_type == RatbagdButton.ActionType.KEY:
+            ratbagd_button.key = dialog.mapping
+        elif dialog.action_type == RatbagdButton.ActionType.SPECIAL:
+            ratbagd_button.special = dialog.mapping
+            lower = RatbagdButton.ActionSpecial.PROFILE_CYCLE_UP
+            upper = RatbagdButton.ActionSpecial.PROFILE_DOWN
+            if lower <= dialog.mapping <= upper:
+                index = ratbagd_button.index
+                for profile in self._device.profiles:
+                    if profile is self._profile:
+                        continue
+                    profile.buttons[index].special = dialog.mapping
 
     def _find_button_type(self, button_type: int) -> Optional[RatbagdButton]:
         for button in self._profile.buttons:
