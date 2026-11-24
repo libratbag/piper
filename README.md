@@ -60,6 +60,12 @@ sudo ninja -C builddir install
 Note: `builddir` is the build output directory and can be changed to any other
 directory name.
 
+At runtime Piper needs the GTK 3.22+ and librsvg 2 typelibs
+(`gir1.2-gtk-3.0` and `gir1.2-rsvg-2.0` on Debian/Ubuntu), PyGObject, `lxml`,
+`evdev` and `pycairo`. Configure checks them unless
+`-Druntime-dependency-checks=false` is passed, for example when ratbagd is not
+installed in the build environment.
+
 See [our Wiki](https://github.com/libratbag/piper/wiki/Installation) for what
 to do when you encounter missing dependencies.
 

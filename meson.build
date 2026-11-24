@@ -78,6 +78,22 @@ subdir('po')
 # Find the directory to install our Python code
 pymod = import('python')
 py3 = pymod.find_installation(modules: python_modules)
+
+if enable_runtime_dependency_checks
+    # GTK and librsvg are loaded through PyGObject, so pkg-config cannot find
+    # them. Check the typelibs here to fail at configure time instead of at
+    # application startup.
+    gtk_rsvg_check = run_command(
+        py3,
+        '-c',
+        'import gi; gi.require_version("Gtk", "3.0"); gi.require_version("Rsvg", "2.0"); from gi.repository import Gtk, Rsvg; assert (Gtk.get_major_version(), Gtk.get_minor_version()) >= (3, 22), "GTK 3.22 required"',
+        check: false,
+    )
+    if gtk_rsvg_check.returncode() != 0
+        error('GTK 3.22+ (gir1.2-gtk-3.0) and librsvg (gir1.2-rsvg-2.0) are required: ' + gtk_rsvg_check.stderr())
+    endif
+endif
+
 python_dir = py3.get_install_dir()
 install_subdir('piper',
                install_dir: python_dir,
