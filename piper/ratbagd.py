@@ -43,6 +43,30 @@ def evcode_to_str(evcode: int) -> str:
     return value
 
 
+# Friendly names for multimedia keys, translated when displayed.
+MULTIMEDIA_KEY_NAMES = {
+    ecodes.KEY_VOLUMEUP: N_("Volume Up"),
+    ecodes.KEY_VOLUMEDOWN: N_("Volume Down"),
+    ecodes.KEY_MUTE: N_("Mute"),
+    ecodes.KEY_MICMUTE: N_("Microphone Mute"),
+    ecodes.KEY_PLAYPAUSE: N_("Play/Pause"),
+    ecodes.KEY_PLAY: N_("Play"),
+    ecodes.KEY_PAUSE: N_("Pause"),
+    ecodes.KEY_NEXTSONG: N_("Next Track"),
+    ecodes.KEY_PREVIOUSSONG: N_("Previous Track"),
+    ecodes.KEY_STOPCD: N_("Stop"),
+    ecodes.KEY_EJECTCD: N_("Eject"),
+    ecodes.KEY_MEDIA: N_("Media Player"),
+}
+
+
+def evcode_to_friendly_str(evcode: int) -> str:
+    """Like evcode_to_str(), but with friendly names for multimedia keys."""
+    if evcode in MULTIMEDIA_KEY_NAMES:
+        return _(MULTIMEDIA_KEY_NAMES[evcode])
+    return evcode_to_str(evcode)
+
+
 class RatbagErrorCode(IntEnum):
     SUCCESS = 0
 
