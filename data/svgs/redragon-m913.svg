@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     width="500" height="480" viewBox="0 0 500 480" version="1.1" id="svg">
+  <g inkscape:label="Device" inkscape:groupmode="layer" id="Device">
+    <path id="body" d="M 319.60,45.40 C 339.40,45.40 352.60,49.00 363.60,52.60 L 370.20,52.60 C 381.20,49.00 394.40,45.40 414.20,45.40 C 436.20,47.20 451.60,72.40 458.20,117.40 C 461.50,151.60 461.50,191.20 463.70,229.00 C 471.40,250.60 478.00,277.60 475.80,306.40 C 473.60,333.40 462.60,358.60 442.80,376.60 C 420.80,394.60 390.00,401.80 363.60,400.00 C 335.00,398.20 313.00,387.40 299.80,371.20 C 291.00,358.60 284.40,344.20 280.00,326.20 L 247.00,315.40 C 240.40,313.60 237.10,310.00 236.00,304.60 L 233.80,194.80 C 233.80,189.40 237.10,185.80 242.60,183.10 L 271.20,162.40 C 275.60,133.60 284.40,92.20 295.40,68.80 C 302.00,54.40 308.60,45.40 319.60,45.40 Z" style="fill:#eeeeec;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <rect id="rect1" x="244.80" y="193.00" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect2" x="251.95" y="193.00" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect3" x="259.10" y="193.00" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect4" x="243.48" y="216.40" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect5" x="250.63" y="216.40" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect6" x="257.78" y="216.40" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect7" x="242.16" y="239.80" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect8" x="249.31" y="239.80" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect9" x="256.46" y="239.80" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect10" x="240.84" y="263.20" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect11" x="247.99" y="263.20" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <rect id="rect12" x="255.14" y="263.20" width="6.05" height="19.80" rx="1.5" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <path id="button0" d="M 319.60,45.40 C 335.00,45.40 348.20,48.10 357.00,50.80 L 357.00,157.00 L 282.20,166.00 C 286.60,133.60 291.00,95.80 297.60,72.40 C 303.10,56.20 309.70,45.40 319.60,45.40 Z" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <path id="button1" d="M 376.80,50.80 C 387.80,48.10 401.00,45.40 414.20,45.40 C 436.20,47.20 451.60,72.40 458.20,117.40 C 460.40,133.60 461.50,148.00 461.50,162.40 L 376.80,157.00 Z" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <path id="path13" d="M 357.00,50.80 L 376.80,50.80 L 379.00,169.60 L 366.90,234.40 L 354.80,169.60 Z" style="fill:#eeeeec;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <rect id="button2" x="358.10" y="61.60" width="17.60" height="39.60" rx="7" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <path id="path14" d="M 360.30,70.60 H 373.50" style="stroke:#babdb6;stroke-width:0.8"/>
+    <path id="path15" d="M 360.30,78.70 H 373.50" style="stroke:#babdb6;stroke-width:0.8"/>
+    <path id="path16" d="M 360.30,86.80 H 373.50" style="stroke:#babdb6;stroke-width:0.8"/>
+    <path id="path17" d="M 360.30,94.90 H 373.50" style="stroke:#babdb6;stroke-width:0.8"/>
+    <path id="path18" d="M 360.30,110.20 H 373.50 L 375.70,130.00 H 358.10 Z" style="fill:#eeeeec;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <path id="path19" d="M 360.30,133.60 H 373.50 L 375.70,153.40 H 358.10 Z" style="fill:#eeeeec;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <path id="path20" d="M 349.30,113.80 l 4.40,-1.80 v 7.20 l -4.40,1.80 Z" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.6;stroke-linejoin:round"/>
+    <path id="path21" d="M 349.30,124.60 l 4.40,-1.80 v 7.20 l -4.40,1.80 Z" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.6;stroke-linejoin:round"/>
+    <path id="path22" d="M 349.30,135.40 l 4.40,-1.80 v 7.20 l -4.40,1.80 Z" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.6;stroke-linejoin:round"/>
+    <path id="path23" d="M 349.30,146.20 l 4.40,-1.80 v 7.20 l -4.40,1.80 Z" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.6;stroke-linejoin:round"/>
+    <rect id="button3" x="287.70" y="85.00" width="12.10" height="23.40" rx="2" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <path id="path24" d="M 313.00,295.60 L 319.60,293.80 L 326.20,360.40 L 319.60,362.20 Z" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <path id="path25" d="M 420.80,293.80 L 414.20,295.60 L 409.80,360.40 L 416.40,362.20 Z" style="fill:#ffffff;stroke:#babdb6;stroke-width:0.8;stroke-linejoin:round"/>
+    <path id="led0" d="M 366.02,309.10 C 384.28,306.40 395.72,318.55 394.18,334.75 L 388.35,330.70 L 390.00,340.15 L 383.40,336.10 L 381.75,345.55 C 375.15,349.60 366.02,349.60 361.18,346.90 L 362.72,332.05 L 357.88,336.10 L 356.12,328.72 L 345.45,329.98 L 351.28,324.58" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <rect id="rect26" x="70" y="124" width="146" height="228" rx="22" style="fill:#eeeeec;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <rect id="button4" x="84" y="138" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text27" x="105.0" y="161.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">1</text>
+    <rect id="button5" x="126" y="138" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text28" x="147.0" y="161.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">2</text>
+    <rect id="button6" x="168" y="138" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text29" x="189.0" y="161.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">3</text>
+    <rect id="button7" x="84" y="192" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text30" x="105.0" y="215.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">4</text>
+    <rect id="button8" x="126" y="192" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text31" x="147.0" y="215.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">5</text>
+    <rect id="button9" x="168" y="192" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text32" x="189.0" y="215.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">6</text>
+    <rect id="button10" x="84" y="246" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text33" x="105.0" y="269.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">7</text>
+    <rect id="button11" x="126" y="246" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text34" x="147.0" y="269.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">8</text>
+    <rect id="button12" x="168" y="246" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text35" x="189.0" y="269.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">9</text>
+    <rect id="button13" x="84" y="300" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text36" x="105.0" y="323.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">10</text>
+    <rect id="button14" x="126" y="300" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text37" x="147.0" y="323.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">11</text>
+    <rect id="button15" x="168" y="300" width="34" height="38" rx="6" style="fill:#ffffff;stroke:#babdb6;stroke-width:1;stroke-linejoin:round"/>
+    <text id="text38" x="189.0" y="323.5" style="font-family:sans-serif;font-size:13px;font-weight:bold;fill:#babdb6;text-anchor:middle">12</text>
+  </g>
+  <g inkscape:label="Buttons" inkscape:groupmode="layer" id="Buttons">
+    <g id="button4-path"><path id="path39" d="M 92.0,157.0 L 62.0,157.0 L 52.0,20.0 L 0.0,20.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button4-leader" x="0" y="19.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect40" x="88.5" y="153.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button5-path"><path id="path41" d="M 134.0,157.0 L 134.0,181.3 L 62.0,181.3 L 52.0,60.0 L 0.0,60.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button5-leader" x="0" y="59.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect42" x="130.5" y="153.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button6-path"><path id="path43" d="M 176.0,157.0 L 176.0,186.7 L 62.0,186.7 L 52.0,100.0 L 0.0,100.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button6-leader" x="0" y="99.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect44" x="172.5" y="153.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button7-path"><path id="path45" d="M 92.0,211.0 L 62.0,211.0 L 52.0,140.0 L 0.0,140.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button7-leader" x="0" y="139.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect46" x="88.5" y="207.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button8-path"><path id="path47" d="M 134.0,211.0 L 134.0,235.3 L 62.0,235.3 L 52.0,180.0 L 0.0,180.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button8-leader" x="0" y="179.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect48" x="130.5" y="207.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button9-path"><path id="path49" d="M 176.0,211.0 L 176.0,240.7 L 62.0,240.7 L 52.0,220.0 L 0.0,220.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button9-leader" x="0" y="219.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect50" x="172.5" y="207.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button10-path"><path id="path51" d="M 92.0,265.0 L 62.0,265.0 L 52.0,260.0 L 0.0,260.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button10-leader" x="0" y="259.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect52" x="88.5" y="261.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button11-path"><path id="path53" d="M 134.0,265.0 L 134.0,289.3 L 62.0,289.3 L 52.0,300.0 L 0.0,300.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button11-leader" x="0" y="299.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect54" x="130.5" y="261.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button12-path"><path id="path55" d="M 176.0,265.0 L 176.0,294.7 L 62.0,294.7 L 52.0,340.0 L 0.0,340.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button12-leader" x="0" y="339.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect56" x="172.5" y="261.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button13-path"><path id="path57" d="M 92.0,319.0 L 62.0,319.0 L 52.0,380.0 L 0.0,380.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button13-leader" x="0" y="379.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect58" x="88.5" y="315.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button14-path"><path id="path59" d="M 134.0,319.0 L 134.0,343.3 L 62.0,343.3 L 52.0,420.0 L 0.0,420.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button14-leader" x="0" y="419.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect60" x="130.5" y="315.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button15-path"><path id="path61" d="M 176.0,319.0 L 176.0,348.7 L 62.0,348.7 L 52.0,460.0 L 0.0,460.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button15-leader" x="0" y="459.5" width="1" height="1" style="text-align:end;fill:none;stroke:none"/><rect id="rect62" x="172.5" y="315.5" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button3-path"><path id="path63" d="M 293.8,96.7 L 293.8,14.0 L 499.0,14.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button3-leader" x="499" y="13.5" width="1" height="1" style="text-align:start;fill:none;stroke:none"/><rect id="rect64" x="290.3" y="93.2" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button0-path"><path id="path65" d="M 330.6,106.6 L 330.6,54.0 L 499.0,54.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button0-leader" x="499" y="53.5" width="1" height="1" style="text-align:start;fill:none;stroke:none"/><rect id="rect66" x="327.1" y="103.1" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button2-path"><path id="path67" d="M 366.9,81.4 L 366.9,102.0 L 499.0,102.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button2-leader" x="499" y="101.5" width="1" height="1" style="text-align:start;fill:none;stroke:none"/><rect id="rect68" x="363.4" y="77.9" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+    <g id="button1-path"><path id="path69" d="M 416.4,106.6 L 416.4,142.0 L 499.0,142.0" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="button1-leader" x="499" y="141.5" width="1" height="1" style="text-align:start;fill:none;stroke:none"/><rect id="rect70" x="412.9" y="103.1" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+  </g>
+  <g inkscape:label="LEDs" inkscape:groupmode="layer" id="LEDs">
+    <g id="led0-path"><path id="path71" d="M 374.6,320.8 L 499.0,320.8" style="fill:none;stroke:#888a85;stroke-width:1"/><rect id="led0-leader" x="499" y="320.3" width="1" height="1" style="text-align:start;fill:none;stroke:none"/><rect id="rect72" x="371.1" y="317.3" width="7" height="7" style="fill:#2e3436;stroke:none"/></g>
+  </g>
+</svg>
