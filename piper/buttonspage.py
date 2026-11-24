@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 from gettext import gettext as _
-from typing import Optional
+from typing import List, Optional
 
 from .buttondialog import ButtonDialog
 from .mousemap import MouseMap
@@ -25,6 +25,15 @@ class ButtonsPage(Gtk.Box):
 
     __gtype_name__ = "ButtonsPage"
 
+    # Signals that trigger a button label update when the mapping changes
+    _BUTTON_MAPPING_SIGNALS: List[str] = [
+        "notify::mapping",
+        "notify::special",
+        "notify::macro",
+        "notify::key",
+        "notify::action-type",
+    ]
+
     def __init__(
         self, ratbagd_device: RatbagdDevice, profile: RatbagdProfile, *args, **kwargs
     ) -> None:
@@ -47,41 +56,17 @@ class ButtonsPage(Gtk.Box):
             # Set the correct label in the option button.
             self._on_button_mapping_changed(ratbagd_button, None, button)
             button.connect("clicked", self._on_button_clicked, ratbagd_button)
-            connect_signal_with_weak_ref(
-                self,
-                ratbagd_button,
-                "notify::mapping",
-                self._on_button_mapping_changed,
-                button,
-            )
-            connect_signal_with_weak_ref(
-                self,
-                ratbagd_button,
-                "notify::special",
-                self._on_button_mapping_changed,
-                button,
-            )
-            connect_signal_with_weak_ref(
-                self,
-                ratbagd_button,
-                "notify::macro",
-                self._on_button_mapping_changed,
-                button,
-            )
-            connect_signal_with_weak_ref(
-                self,
-                ratbagd_button,
-                "notify::key",
-                self._on_button_mapping_changed,
-                button,
-            )
-            connect_signal_with_weak_ref(
-                self,
-                ratbagd_button,
-                "notify::action-type",
-                self._on_button_mapping_changed,
-                button,
-            )
+
+            # Connect all mapping-related signals to update the button label
+            for signal in self._BUTTON_MAPPING_SIGNALS:
+                connect_signal_with_weak_ref(
+                    self,
+                    ratbagd_button,
+                    signal,
+                    self._on_button_mapping_changed,
+                    button,
+                )
+
             self._mousemap.add(button, f"#button{ratbagd_button.index}")
             self._sizegroup.add_widget(button)
 
