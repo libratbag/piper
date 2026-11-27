@@ -468,7 +468,7 @@ msgstr "Den här lysdioden är av"
 
 #: data/ui/MousePerspective.ui:43
 msgid "Something went wrong. The device has been reset to a previous state."
-msgstr "Något gick fel. Enheten återställdes till ett tidigare tillstand."
+msgstr "Något gick fel. Enheten har återställts till ett tidigare tillstånd."
 
 #: data/ui/MousePerspective.ui:116
 msgid "Click to switch to another profile"
