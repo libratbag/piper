@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the piper package.
 # Patrik Nilsson <translation_AT_hembas.se>, 2017.
 # Stephan Lachnit <stephanlachnit@protonmail.com>, 2020.
+# Daniel Nylander <po@danielnylander.se>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: piper\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-05 16:33+0000\n"
-"PO-Revision-Date: 2020-05-19 12:17+0200\n"
-"Last-Translator: Stephan Lachnit <stephanlachnit@protonmail.com>\n"
+"PO-Revision-Date: 2026-11-27 11:47+0100\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
